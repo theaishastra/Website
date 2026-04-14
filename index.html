@@ -29,23 +29,23 @@
     <script>
         (function () {
 
-            // 🚫 Disable right-click
-            document.addEventListener("contextmenu", function (e) {
-                e.preventDefault();
-            });
+            // // 🚫 Disable right-click
+            // document.addEventListener("contextmenu", function (e) {
+            //     e.preventDefault();
+            // });
 
-            // 🚫 Disable shortcut keys
-            document.addEventListener("keydown", function (e) {
-                if (e.key === "F12") e.preventDefault();
+            // // 🚫 Disable shortcut keys
+            // document.addEventListener("keydown", function (e) {
+            //     if (e.key === "F12") e.preventDefault();
 
-                if (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key)) {
-                    e.preventDefault();
-                }
+            //     if (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key)) {
+            //         e.preventDefault();
+            //     }
 
-                if (e.ctrlKey && e.key === "u") {
-                    e.preventDefault();
-                }
-            });
+            //     if (e.ctrlKey && e.key === "u") {
+            //         e.preventDefault();
+            //     }
+            // });
 
             // 🔍 DevTools detection function
             function detectDevTools() {
@@ -99,24 +99,21 @@
             <span>The AI Shastra</span>
         </a>
         <div class="nav-links" id="navLinks">
-            <a href="#home">Sutra Zero</a>
-            <a href="#codex">Codex</a>
-            <a href="#forge">Forge Room</a>
-            <a href="#training">Sharpening</a>
-            <a href="#team">The Council</a>
-            <a href="#fellowship">The Tribe</a>
+            <a href="#home" data-tooltip="The AI Shastra's core mission & vision">Sutra Zero</a>
+            <a href="#codex" data-tooltip="The four pillars of intelligent transformation">Codex</a>
+            <a href="#forge" data-tooltip="Complete business transformation solutions">Forge Room</a>
+            <a href="#training" data-tooltip="Structured AI talent development program">Sharpening</a>
+            <a href="#team" data-tooltip="Meet the minds shaping the future">The Council</a>
+            <a href="#fellowship" data-tooltip="Join our mission-driven AI community">The Tribe</a>
             <div class="dropdown">
                 <div class="drop-btn">Others <i class="fas fa-chevron-down"></i></div>
                 <div class="drop-content">
-                    <a href="#updates"><i class="fas fa-bolt" style="margin-right: 8px; opacity: 0.7;"></i> Daily
-                        Pulse</a>
-                    <a href="#markets"><i class="fas fa-chart-line" style="margin-right: 8px; opacity: 0.7;"></i>
-                        Markets</a>
-                    <a href="#community"><i class="fas fa-hand-holding-heart"
-                            style="margin-right: 8px; opacity: 0.7;"></i> Community</a>
+                    <a href="#updates" data-tooltip="Latest breakthroughs & internal Shastra milestones"><i class="fas fa-bolt" style="margin-right: 8px; opacity: 0.7;"></i> Daily Pulse</a>
+                    <a href="#markets" data-tooltip="Real-time AI economy & market analysis"><i class="fas fa-chart-line" style="margin-right: 8px; opacity: 0.7;"></i> Markets</a>
+                    <a href="#community" data-tooltip="Health, wellness, volunteering & community events"><i class="fas fa-hand-holding-heart" style="margin-right: 8px; opacity: 0.7;"></i> Community</a>
                 </div>
             </div>
-            <a href="#contact">Connect.ai</a>
+            <a href="#contact" data-tooltip="Get in touch with our AI response team">Connect.ai</a>
         </div>
 
         <button class="btn-citrus" style="display:none" id="navCta">Let's Talk</button>
@@ -255,6 +252,32 @@
         </div>
     </div>
 
+    <!-- TRUSTED PARTNERS — Horizontal Scrolling -->
+    <section id="partners" class="partners-section">
+        <div class="partners-container">
+            <h3 class="partners-title" data-aos="fade-up">Our Trusted Partners</h3>
+            <div class="partners-scroll" data-aos="fade-up" data-aos-delay="200">
+                <div class="partner-card">
+                    <div class="partner-logo-wrap">
+                        <img src="assets/cheyutha.png" alt="Cheyutha Logo">
+                    </div>
+                    <p class="partner-name">Cheyutha</p>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-logo-wrap">
+                        <img src="assets/Harshitha_Plastics.png" alt="Harshitha Plastics Logo">
+                    </div>
+                    <p class="partner-name">Harshitha Plastics</p>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-logo-wrap">
+                        <img src="assets/Aayush_Kalpa.jpg" alt="Aayush Kalpa Logo">
+                    </div>
+                    <p class="partner-name">Aayush Kalpa</p>
+                </div>
+            </div>
+        </div>
+    </section>
     <!-- THE CODEX — Vision & Values -->
     <section id="codex" class="section">
         <div class="section-header" data-aos="fade-up">
@@ -924,128 +947,72 @@
 
 
     <!-- DAILY UPDATES SECTION -->
-    <section id="updates" class="section section-yellow">
-        <div class="section-header" data-aos="fade-up">
-            <span class="sec-tag">Daily Pulse</span>
-            <h2>Shastra Daily Updates</h2>
-            <p>Stay updated with the latest breakthroughs in Agentic AI and internal Shastra milestones.</p>
-        </div>
-        <div class="sharp-grid">
-            <div class="sharp-card" data-aos="fade-up">
-                <div class="scan-line"></div>
-                <div class="gc-icon"><i class="fas fa-newspaper"></i></div>
-                <h3 class="gc-title">Latest Signal</h3>
-                <p class="gc-desc">Today's top AI insight: The rise of Multi-Agent Orchestration in business workflows.
-                </p>
-                <div class="gc-badge">NEW</div>
+    <section id="updates" class="daily-pulse-section">
+        <div class="pulse-container">
+            <div class="pulse-header-top">
+                <span class="sec-tag">Daily Pulse</span>
+                <h2>Shastra Daily Updates</h2>
+                <p>Stay updated with the latest breakthroughs in Agentic AI and internal Shastra milestones.</p>
             </div>
-            <div class="sharp-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="scan-line"></div>
-                <div class="gc-icon"><i class="fas fa-users"></i></div>
-                <h3 class="gc-title">Community Milestone</h3>
-                <p class="gc-desc">The AI Shastra community has officially surpassed 10,000 active practitioners
-                    globally.</p>
-            </div>
-            <div class="sharp-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="scan-line"></div>
-                <div class="gc-icon"><i class="fas fa-code-branch"></i></div>
-                <h3 class="gc-title">Tech Brief</h3>
-                <p class="gc-desc">New deployment: Successfully integrated a custom Agentic workflow for a global
-                    logistics firm.</p>
+
+            <div class="pulse-integrated-box">
+                <div class="pulse-cards-left" data-aos="fade-right">
+                    <div class="pulse-card" data-aos="fade-up">
+                        <div class="card-badge new">NEW</div>
+                        <div class="card-icon"><i class="fas fa-zap"></i></div>
+                        <h3>Latest Signal</h3>
+                        <p>Multi-Agent Orchestration transforming business workflows.</p>
+                    </div>
+                    <div class="pulse-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card-badge milestone">MILESTONE</div>
+                        <div class="card-icon"><i class="fas fa-users"></i></div>
+                        <h3>Community Growth</h3>
+                        <p>10,000+ active AI practitioners globally!</p>
+                    </div>
+                    <div class="pulse-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="card-badge deploy">DEPLOYED</div>
+                        <div class="card-icon"><i class="fas fa-rocket"></i></div>
+                        <h3>Live Integration</h3>
+                        <p>Custom Agentic workflow deployed for logistics.</p>
+                    </div>
+                </div>
+                <div class="pulse-image-right" data-aos="fade-left">
+                    <img src="assets/daily_pulse.png" alt="Daily Pulse Dashboard" class="pulse-image">
+                </div>
             </div>
         </div>
     </section>
 
     <!-- MARKETS SECTION -->
-    <!-- INTELLIGENCE MARKETS — DATA DASHBOARD (Light Theme) -->
-    <section id="markets" class="section" style="background: #ffffff; color: var(--text-dark);">
-        <div class="section-header" data-aos="fade-up">
-            <span class="sec-tag"
-                style="background: rgba(34,197,94,0.05); color: var(--green); border-color: rgba(34,197,94,0.2);">Intelligence
-                Markets</span>
-            <h2 style="color: var(--text-dark);">Global Market Analysis</h2>
-            <p style="color: var(--text-gray);">Real-time strategic data on the AI economy and adoption milestones.</p>
-        </div>
-
-        <div class="market-dashboard"
-            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-            <!-- Trend Card 1 -->
-            <div class="market-card card"
-                style="background: white; border: 1px solid #e8f5e9; padding: 25px; border-radius: 20px; position: relative; overflow: hidden;"
-                data-aos="fade-up">
-                <div
-                    style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
-                    <div>
-                        <h4 style="font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; margin-bottom: 5px;">
-                            Sector Growth</h4>
-                        <h3 style="font-size: 1.5rem; font-weight: 800; color: var(--text-dark);">Generative AI</h3>
-                    </div>
-                    <div
-                        style="background: rgba(34,197,94,0.1); color: #22c55e; padding: 4px 10px; border-radius: 50px; font-size: 0.75rem; font-weight: 700;">
-                        +342% YoY</div>
-                </div>
-                <div style="height: 100px; display: flex; align-items: flex-end; gap: 6px;">
-                    <div style="flex:1; background: #86efac; height: 30%; border-radius: 4px 4px 0 0;"></div>
-                    <div style="flex:1; background: #4ade80; height: 45%; border-radius: 4px 4px 0 0;"></div>
-                    <div style="flex:1; background: #22c55e; height: 60%; border-radius: 4px 4px 0 0;"></div>
-                    <div
-                        style="flex:1; background: #facc15; height: 85%; border-radius: 4px 4px 0 0; box-shadow: 0 0 15px rgba(250,204,21,0.3);">
-                    </div>
-                </div>
-                <p style="font-size: 0.8rem; color: #64748b; margin-top: 15px;">Projected to reach <span
-                        style="color: #22c55e; font-weight: 600;">$1.3T</span> by 2032 through enterprise scaling.</p>
+    <!-- INTELLIGENCE MARKETS — DATA DASHBOARD -->
+    <section id="markets" class="intelligence-markets-section">
+        <div class="markets-container">
+            <div class="markets-header-top">
+                <span class="sec-tag">Intelligence Markets</span>
+                <h2>Global Market Analysis</h2>
+                <p>Real-time strategic data on the AI economy and adoption milestones.</p>
             </div>
 
-            <!-- Trend Card 2 -->
-            <div class="market-card card"
-                style="background: white; border: 1px solid #e8f5e9; padding: 25px; border-radius: 20px;"
-                data-aos="fade-up" data-aos-delay="100">
-                <div
-                    style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
-                    <div>
-                        <h4 style="font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; margin-bottom: 5px;">
-                            Agentic Adoption</h4>
-                        <h3 style="font-size: 1.5rem; font-weight: 800; color: var(--text-dark);">Autonomous Core</h3>
+            <div class="markets-integrated-box">
+                <div class="markets-image-left" data-aos="fade-right">
+                    <img src="assets/intelligence_markets.png" alt="Intelligence Markets Dashboard" class="markets-image">
+                </div>
+                <div class="markets-insights-right" data-aos="fade-left">
+                    <div class="insight-card" data-aos="fade-up">
+                        <div class="insight-number">+342%</div>
+                        <div class="insight-label">Generative AI Growth</div>
+                        <div class="insight-sub">YoY expansion towards $1.3T by 2032</div>
                     </div>
-                    <div
-                        style="background: rgba(234,179,8,0.1); color: #eab308; padding: 4px 10px; border-radius: 50px; font-size: 0.75rem; font-weight: 700;">
-                        LIVE FEED</div>
-                </div>
-                <div class="market-feed"
-                    style="font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--green); display: flex; flex-direction: column; gap: 8px;">
-                    <div style="display: flex; gap: 10px;"><span style="color: #94a3b8;">[14:23]</span> <b>[DEPLOY]</b>
-                        Agent_Nexus-v4 active.</div>
-                    <div style="display: flex; gap: 10px;"><span style="color: #94a3b8;">[14:25]</span> <b>[QUERY]</b>
-                        Semantic search initialized.</div>
-                    <div style="display: flex; gap: 10px;"><span style="color: #94a3b8;">[14:28]</span> <b>[SUCCESS]</b>
-                        48% reduction in latency.</div>
-                </div>
-                <div style="margin-top: 25px; height: 4px; background: #f1f5f9; border-radius: 2px;">
-                    <div
-                        style="width: 78%; height: 100%; background: var(--grad); border-radius: 2px; box-shadow: 0 0 10px rgba(34,197,94,0.2);">
+                    <div class="insight-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="insight-number">78%</div>
+                        <div class="insight-label">Agentic Adoption</div>
+                        <div class="insight-sub">Enterprise autonomous systems live</div>
                     </div>
-                </div>
-            </div>
-
-            <!-- Trend Card 3 -->
-            <div class="market-card card"
-                style="background: white; border: 1px solid #e8f5e9; padding: 25px; border-radius: 20px;"
-                data-aos="fade-up" data-aos-delay="200">
-                <div
-                    style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
-                    <h3 style="font-size: 1.1rem; font-weight: 800; color: var(--text-dark);">Strategic Outlook</h3>
-                    <i class="fas fa-binoculars" style="color: #22c55e;"></i>
-                </div>
-                <p style="font-size: 0.85rem; color: var(--text-gray); line-height: 1.7;">Venture capital is shifting
-                    from foundational models to <span style="color: #eab308; font-weight: 600;">Reasoning-Engine</span>
-                    architectures and multi-agent systems that solve domain-specific problems.</p>
-                <div style="display: flex; gap: 10px; margin-top: 20px;">
-                    <span
-                        style="font-size: 0.65rem; padding: 4px 10px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 4px; color: #64748b;">#agentic</span>
-                    <span
-                        style="font-size: 0.65rem; padding: 4px 10px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 4px; color: #64748b;">#reasoning</span>
-                    <span
-                        style="font-size: 0.65rem; padding: 4px 10px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 4px; color: #64748b;">#roi</span>
+                    <div class="insight-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="insight-number">48%</div>
+                        <div class="insight-label">Performance Gain</div>
+                        <div class="insight-sub">Latency reduction in workflows</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1053,112 +1020,112 @@
 
 
     <!-- SHASTRA COMMUNITY — Lifestyle & Events -->
-    <section id="community" class="section section-alt">
-        <div class="section-header" data-aos="fade-up">
+    <section id="community" class="community-section">
+        <div class="community-header" data-aos="fade-up">
             <span class="sec-tag">Shastra Community</span>
             <h2>Beyond the Algorithm</h2>
-            <p>Fostering a holistic ecosystem of health, <i class="fas fa-hand-holding-heart"
-                    style="color: var(--green); margin-right: 4px;"></i> volunteering, and future-forward events.</p>
+            <p>Fostering a holistic ecosystem of health, wellness, volunteering, and forward-thinking events.</p>
         </div>
-        <div class="codex-pillars">
-            <div class="pillar" data-aos="fade-up" data-aos-delay="100">
-                <div class="pillar-icon"><i class="fas fa-om"></i></div>
-                <h4>Yoga &amp; Mindfulness</h4>
-                <p>Starting every day with clarity. We integrate yogic principles for mental peak performance.</p>
+        <div class="community-grid">
+            <div class="community-card wellness-card" data-aos="zoom-in" data-aos-delay="0">
+                <div class="card-glow"></div>
+                <div class="card-number">01</div>
+                <div class="card-icon"><i class="fas fa-om"></i></div>
+                <h3>Yoga & Mindfulness</h3>
+                <p>Start each day with clarity. We integrate yogic principles for peak mental performance and sustainable wellness.</p>
+                <div class="card-footer">
+                    <span class="practice-count">10K+ Practitioners</span>
+                </div>
             </div>
-            <div class="pillar" data-aos="fade-up" data-aos-delay="200">
-                <div class="pillar-icon"><i class="fas fa-hand-holding-heart"></i></div>
-                <h4>Volunteering</h4>
-                <p>Giving back to the community through AI literacy programs and social welfare initiatives.</p>
+            <div class="community-card volunteer-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="card-glow"></div>
+                <div class="card-number">02</div>
+                <div class="card-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                <h3>Volunteering</h3>
+                <p>Give back through AI literacy programs, community education, and meaningful social welfare initiatives.</p>
+                <div class="card-footer">
+                    <span class="practice-count">25+ Programs Active</span>
+                </div>
             </div>
-            <div class="pillar" data-aos="fade-up" data-aos-delay="300">
-                <div class="pillar-icon"><i class="fas fa-calendar-alt"></i></div>
-                <h4>Upcoming Programs</h4>
-                <p>Join our specialized Agentic AI cohort. Scheduled launch: <strong>26th April</strong>.</p>
+            <div class="community-card events-card" data-aos="zoom-in" data-aos-delay="200">
+                <div class="card-glow"></div>
+                <div class="card-number">03</div>
+                <div class="card-icon"><i class="fas fa-calendar-days"></i></div>
+                <h3>Upcoming Events</h3>
+                <p>Join our specialized Agentic AI cohort launching April 26th. Network, learn, and grow with industry leaders.</p>
+                <div class="card-footer">
+                    <span class="event-date">🚀 Apr 26, 2026</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- NEURAL CONTACT HUB -->
-    <section id="contact" class="contact-premium">
-        <!-- Background Effects -->
-        <div class="contact-glow glow-green"></div>
-        <div class="contact-glow glow-yellow"></div>
-
-        <div class="section-header" data-aos="fade-up">
-            <span class="sec-tag">Connect.ai</span>
-            <h2 class="hub-title" style="margin-bottom: 0;">Ready to Forge the <span>Future?</span></h2>
-            <p style="margin-top: 15px; max-width: 650px; margin-left: auto; margin-right: auto;">
-                Connect with our elite response team to deploy bespoke AI agents or accelerate your organization's
-                intelligence curve.
-            </p>
-        </div>
-
-        <div class="contact-grid">
-            <!-- Left Visual Content -->
-            <div class="contact-hub-visual" data-aos="fade-right">
-                <div class="hub-cards">
-                    <div class="hub-card">
-                        <div class="hub-card-icon"><i class="fas fa-envelope"></i></div>
-                        <div class="hub-card-info">
-                            <h4>Direct Uplink</h4>
-                            <p>theaishastra@gmail.com</p>
-                        </div>
-                    </div>
-                    <div class="hub-card">
-                        <div class="hub-card-icon"><i class="fas fa-shield-halved"></i></div>
-                        <div class="hub-card-info">
-                            <h4>Official Channel</h4>
-                            <p>info@theaishastra.com</p>
-                        </div>
-                    </div>
-                    <div class="hub-card">
-                        <div class="hub-card-icon"><i class="fab fa-whatsapp"></i></div>
-                        <div class="hub-card-info">
-                            <h4>Neural Support</h4>
-                            <p>+91 63096 46644</p>
-                        </div>
-                    </div>
-                    <div class="hub-card">
-                        <div class="hub-card-icon"><i class="fas fa-map-marker-alt"></i></div>
-                        <div class="hub-card-info">
-                            <h4>Global Node</h4>
-                            <p>Hyderabad, India</p>
-                        </div>
-                    </div>
-                </div>
+    <!-- CONNECT.AI HUB -->
+    <section id="contact" class="connectai-section">
+        <div class="connectai-wrapper">
+            <div class="connectai-header" data-aos="fade-up">
+                <span class="sec-tag">Connect.ai</span>
+                <h2>Ready to Forge the Future?</h2>
+                <p>Connect with our elite response team to deploy bespoke AI agents or accelerate your organization's intelligence curve.</p>
             </div>
 
-            <!-- Right Quantum Form -->
-            <div class="contact-hub-form" data-aos="fade-left">
-                <div class="form-deco deco-1"></div>
-                <div class="form-header">
-                    <h3>Transmit Requirement</h3>
-                    <p>Initialize your request. Average response latency: &lt; 4hrs.</p>
+            <div class="connectai-grid">
+                <!-- Contact Cards -->
+                <div class="connectai-left" data-aos="fade-right">
+                    <div class="contact-methods">
+                        <div class="method-card email-card" data-aos="zoom-in">
+                            <div class="method-icon"><i class="fas fa-envelope"></i></div>
+                            <div class="method-content">
+                                <h4>Direct Uplink</h4>
+                                <p><a href="mailto:theaishastra@gmail.com">theaishastra@gmail.com</a></p>
+                            </div>
+                        </div>
+                        <div class="method-card official-card" data-aos="zoom-in" data-aos-delay="100">
+                            <div class="method-icon"><i class="fas fa-shield-halved"></i></div>
+                            <div class="method-content">
+                                <h4>Official Channel</h4>
+                                <p><a href="mailto:info@theaishastra.com">info@theaishastra.com</a></p>
+                            </div>
+                        </div>
+                        <div class="method-card whatsapp-card" data-aos="zoom-in" data-aos-delay="200">
+                            <div class="method-icon"><i class="fab fa-whatsapp"></i></div>
+                            <div class="method-content">
+                                <h4>Contact</h4>
+                                <p><a href="https://wa.me/916309646644" target="_blank">+91 63096 46644</a></p>
+                            </div>
+                        </div>
+                        <div class="method-card location-card" data-aos="zoom-in" data-aos-delay="300">
+                            <div class="method-icon"><i class="fas fa-location-dot"></i></div>
+                            <div class="method-content">
+                                <h4>Global Node</h4>
+                                <p>Hyderabad, India</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <form action="#" class="quantum-form">
-                    <div class="input-group">
-                        <input type="text" id="fname" placeholder=" " required>
-                        <label for="fname" class="input-label">Ident. Full Name</label>
-                    </div>
-                    <div class="input-group">
-                        <input type="email" id="femail" placeholder=" " required>
-                        <label for="femail" class="input-label">Digital Address</label>
-                    </div>
-                    <div class="input-group">
-                        <input type="text" id="fsubject" placeholder=" " required>
-                        <label for="fsubject" class="input-label">Strategic Subject</label>
-                    </div>
-                    <div class="input-group">
-                        <textarea id="fmessage" placeholder=" " required></textarea>
-                        <label for="fmessage" class="input-label">Project Objectives / Queries</label>
-                    </div>
-                    <button type="submit" class="btn-transmit">
-                        <span>Transmit Signal</span>
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </form>
+                <!-- Contact Form -->
+                <div class="connectai-right" data-aos="fade-left">
+                    <form class="connectai-form" id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="fname" placeholder="Full Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="femail" placeholder="Email Address" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="fsubject" placeholder="Subject / Project Type" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="fmessage" placeholder="Describe your requirements..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">
+                            <span>Send Message</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                        <p class="response-time">⚡ Average response: < 4 hours</p>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
@@ -1262,7 +1229,6 @@
     <!-- SHASTRA AI CHATBOT -->
     <div class="pulse-ring"></div>
     <div class="pulse-ring2"></div>
-    <div class="notif" id="notifBubble">🤖 &nbsp;Hi! I'm Shastra AI. Ask me anything!</div>
 
     <div id="launcher" onclick="toggleChat()" title="Chat with Shastra AI">
         <img src="assets/shastra_robot_3d_floating.png" alt="Shastra Robot">
@@ -1272,8 +1238,7 @@
         <div class="chat-header">
             <img src="assets/shastra_robot_3d_floating.png" class="header-robo-small" alt="Mascot">
             <div class="header-info">
-                <div class="header-name">SHASTRA AI</div>
-                <div class="header-sub"><div class="live-dot"></div>ONLINE &nbsp;·&nbsp; Smart Assistant</div>
+                <div class="header-name">Shastra AI bot</div>
             </div>
             <div class="chat-controls" style="position: relative; z-index: 50;">
                 <button type="button" class="voice-toggle" id="voiceToggle" onclick="event.stopPropagation(); toggleMute()" title="Toggle Voice" style="position: relative; z-index: 50;">🔊</button>

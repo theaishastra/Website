@@ -31,8 +31,20 @@
         });
 
         document.getElementById('hamburger').addEventListener('click', () => {
+            const navLinks = document.getElementById('navLinks');
+            const chatbox = document.getElementById('chatbox');
+            const launcher = document.getElementById('launcher');
 
-            document.getElementById('navLinks').classList.toggle('active');
+            navLinks.classList.toggle('active');
+
+            // Hide chatbot when opening nav menu, show when closing
+            if (navLinks.classList.contains('active')) {
+                if (chatbox) chatbox.classList.add('nav-menu-open');
+                if (launcher) launcher.classList.add('nav-menu-open');
+            } else {
+                if (chatbox) chatbox.classList.remove('nav-menu-open');
+                if (launcher) launcher.classList.remove('nav-menu-open');
+            }
         });
 
         // â•â•â• 3D TILT EFFECT â•â•â•
@@ -70,6 +82,13 @@
             a.addEventListener('click', e => {
                 e.preventDefault();
                 document.getElementById('navLinks').classList.remove('active');
+                // Hide chatbot when navigating to sections
+                const chatbox = document.getElementById('chatbox');
+                const launcher = document.getElementById('launcher');
+                if (chatbox && chatbox.classList.contains('visible')) {
+                    chatbox.classList.remove('visible');
+                    if (launcher) launcher.classList.remove('open');
+                }
                 const target = document.querySelector(a.getAttribute('href'));
                 if (target) target.scrollIntoView({ behavior: 'smooth' });
             });
@@ -469,8 +488,9 @@
 
                         const t1 = home?.team?.shortDisplayName || home?.team?.abbreviation || '';
                         const t2 = away?.team?.shortDisplayName || away?.team?.abbreviation || '';
-                        const s1 = home?.score || '';
-                        const s2 = away?.score || '';
+                        // Try multiple score field formats
+                        const s1 = home?.score?.displayValue || home?.score?.value || home?.score || '';
+                        const s2 = away?.score?.displayValue || away?.score?.value || away?.score || '';
 
                         if (state === 'in') {
                             // LIVE match
@@ -557,11 +577,19 @@
     function toggleChat() {
       const box = document.getElementById('chatbox');
       const launch = document.getElementById('launcher');
-      const notif = document.getElementById('notifBubble');
-      const isOpen = box.classList.toggle('visible');
-      launch.classList.toggle('chat-open');
-      if (notif) notif.style.display = 'none';
+
+      if (!box) return;
+
+      const isOpen = box.classList.contains('visible');
+
       if (isOpen) {
+        // Close chatbox
+        box.classList.remove('visible');
+        if (launch) launch.classList.remove('chat-open');
+      } else {
+        // Open chatbox
+        box.classList.add('visible');
+        if (launch) launch.classList.add('chat-open');
         document.getElementById('chatTime').textContent = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
         if (document.getElementById('chatMessages').children.length <= 1) {
           setTimeout(() => botRespond("Namaste! I am your Shastra AI assistant. How may I guide you today?"), 600);
@@ -590,7 +618,11 @@
     function botRespond(html) {
       appendMsg(html, 'bot');
       if (!isMuted) {
-        const cleanText = html.replace(/<[^>]*>/g, '');
+        let cleanText = html.replace(/<[^>]*>/g, '');
+        // Convert phone numbers to digit-by-digit format for speech
+        cleanText = cleanText.replace(/\+91\s?(\d{5})\s?(\d{5})/g, (match, p1, p2) => {
+          return '+91 ' + p1.split('').join(' ') + ' ' + p2.split('').join(' ');
+        });
         const utter = new SpeechSynthesisUtterance(cleanText);
         
         // Find best native English voice
@@ -624,11 +656,42 @@
 
     function toggleSpeech() {
       if (!recognizer) return alert("Speech recognition not supported in this browser.");
-      if (isListening) { recognizer.stop(); stopListeningUI(); } 
+      if (isListening) { recognizer.stop(); stopListeningUI(); }
       else { recognizer.start(); startListeningUI(); }
     }
     function startListeningUI() { isListening = true; document.getElementById('micBtn').classList.add('active'); }
     function stopListeningUI() { isListening = false; document.getElementById('micBtn').classList.remove('active'); }
+
+    // Expose functions globally for HTML onclick handlers
+    window.toggleChat = toggleChat;
+    window.toggleMute = toggleMute;
+    window.toggleSpeech = toggleSpeech;
+    window.sendChatMessage = sendChatMessage;
+    window.handleChatKey = handleChatKey;
+    window.quickSend = quickSend;
+
+    // ═══════════════════════════════════════════════════════════════════
+    // CONTINUOUS AUTO-SCROLLING FOR MOBILE PARTNERS SECTION
+    // ═══════════════════════════════════════════════════════════════════
+    function initMobilePartnersScroll() {
+        // Just display cards - no auto-scroll
+    }
+
+    // Initialize on page load
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initMobilePartnersScroll);
+    } else {
+        initMobilePartnersScroll();
+    }
+
+    // Re-initialize on window resize
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            initMobilePartnersScroll();
+        }, 250);
+    });
 
     // Hide notif after 8s
     setTimeout(() => { const n = document.getElementById('notifBubble'); if (n) n.style.opacity = '0'; }, 8000);
