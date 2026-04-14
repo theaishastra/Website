@@ -29,23 +29,23 @@
     <script>
         (function () {
 
-            // // 🚫 Disable right-click
-            // document.addEventListener("contextmenu", function (e) {
-            //     e.preventDefault();
-            // });
+            // 🚫 Disable right-click
+            document.addEventListener("contextmenu", function (e) {
+                e.preventDefault();
+            });
 
-            // // 🚫 Disable shortcut keys
-            // document.addEventListener("keydown", function (e) {
-            //     if (e.key === "F12") e.preventDefault();
+            // 🚫 Disable shortcut keys
+            document.addEventListener("keydown", function (e) {
+                if (e.key === "F12") e.preventDefault();
 
-            //     if (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key)) {
-            //         e.preventDefault();
-            //     }
+                if (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key)) {
+                    e.preventDefault();
+                }
 
-            //     if (e.ctrlKey && e.key === "u") {
-            //         e.preventDefault();
-            //     }
-            // });
+                if (e.ctrlKey && e.key === "u") {
+                    e.preventDefault();
+                }
+            });
 
             // 🔍 DevTools detection function
             function detectDevTools() {
