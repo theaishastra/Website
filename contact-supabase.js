@@ -23,6 +23,7 @@
     const EMAILJS_PUBLIC_KEY  = 'jGlUrMM5jn_A_44Vu';   // Account → API Keys → Public Key
     const EMAILJS_SERVICE_ID  = 'service_umt79jl';   // Email Services → Service ID
     const EMAILJS_TEMPLATE_ID = 'template_8lxdf75';  // Email Templates → Template ID
+    const ADMIN_EMAIL         = 'theaishastra@gmail.com';  // Admin notification email
 
     /* ════════════════════════════════════════════ */
 
@@ -47,32 +48,60 @@
     }
 
     /* ── EMAILJS SEND ── */
-    /* EmailJS template variables used:
-       {{to_name}}    — user's full name
-       {{to_email}}   — user's email (EmailJS sends TO this)
-       {{subject}}    — their subject
-       {{message}}    — their message
-       {{reply_to}}   — same as to_email for reply
-       {{from_name}}  — "The AI Shastra"
+    /* Sends TWO emails:
+       1. Confirmation to USER
+       2. Notification to ADMIN
     */
     async function sendEmail(payload) {
         if (typeof emailjs === 'undefined') {
             console.warn('[AI Shastra] EmailJS not loaded — skipping email.');
             return false;
         }
-        await emailjs.send(
-            EMAILJS_SERVICE_ID,
-            EMAILJS_TEMPLATE_ID,
-            {
-                to_name  : payload.full_name,
-                to_email : payload.email,
-                subject  : payload.subject,
-                message  : payload.message,
-                reply_to : payload.email,
-                from_name: 'The AI Shastra',
-            },
-            EMAILJS_PUBLIC_KEY
-        );
+
+        /* SEND 1: Confirmation email to USER */
+        try {
+            console.log('[EmailJS] Sending confirmation to user:', payload.email);
+            await emailjs.send(
+                EMAILJS_SERVICE_ID,
+                EMAILJS_TEMPLATE_ID,
+                {
+                    to_name  : payload.full_name,
+                    to_email : payload.email,
+                    subject  : payload.subject,
+                    message  : payload.message,
+                    reply_to : payload.email,
+                    from_name: 'The AI Shastra',
+                },
+                EMAILJS_PUBLIC_KEY
+            );
+            console.log('[EmailJS] ✓ Confirmation sent to user');
+        } catch (err) {
+            console.error('[EmailJS] ✗ Failed to send user confirmation:', err);
+            throw err;
+        }
+
+        /* SEND 2: Notification email to ADMIN */
+        try {
+            console.log('[EmailJS] Sending notification to admin:', ADMIN_EMAIL);
+            await emailjs.send(
+                EMAILJS_SERVICE_ID,
+                EMAILJS_TEMPLATE_ID,
+                {
+                    to_name  : 'AI Shastra Admin',
+                    to_email : ADMIN_EMAIL,
+                    subject  : `New Contact: ${payload.subject}`,
+                    message  : `From: ${payload.full_name}\nEmail: ${payload.email}\n\nMessage:\n${payload.message}`,
+                    reply_to : payload.email,
+                    from_name: 'Contact Form',
+                },
+                EMAILJS_PUBLIC_KEY
+            );
+            console.log('[EmailJS] ✓ Notification sent to admin');
+        } catch (err) {
+            console.error('[EmailJS] ✗ Failed to send admin notification:', err);
+            throw err;
+        }
+
         return true;
     }
 
