@@ -239,15 +239,20 @@
     ══════════════════════════════════════════ */
     async function handleSubmit(e) {
         e.preventDefault();
+        console.log('[Contact Form] Submit handler triggered');
 
-        const form     = document.querySelector('.quantum-form');
+        const form     = document.querySelector('.quantum-form') || document.querySelector('.connectai-form');
         const fname    = form.querySelector('#fname');
         const femail   = form.querySelector('#femail');
         const fsubject = form.querySelector('#fsubject');
         const fmessage = form.querySelector('#fmessage');
-        const btn      = form.querySelector('.btn-transmit');
+        const btn      = form.querySelector('.btn-transmit') || form.querySelector('.btn-submit');
+        console.log('[Contact Form] Button found:', !!btn, 'Button class:', btn?.className);
 
-        if (!validate(fname, femail, fsubject, fmessage)) return;
+        if (!validate(fname, femail, fsubject, fmessage)) {
+            console.log('[Contact Form] Validation failed');
+            return;
+        }
 
         /* Mark fields green */
         [fname, femail, fsubject, fmessage].forEach(f => {
@@ -279,11 +284,17 @@
         };
 
         try {
+            console.log('[Contact Form] Payload ready:', payload);
+
             /* STEP 1 — Save to Supabase */
+            console.log('[Contact Form] Saving to Supabase...');
             await saveToSupabase(payload);
+            console.log('[Contact Form] Saved to Supabase ✓');
 
             /* STEP 2 — Send confirmation email via EmailJS */
+            console.log('[Contact Form] Sending email via EmailJS...');
             await sendEmail(payload);
+            console.log('[Contact Form] Email sent ✓');
 
             /* Restore button */
             btn.innerHTML = origHTML;
@@ -315,7 +326,7 @@
 
     /* ── RESET ── */
     function resetForm() {
-        const form    = document.querySelector('.quantum-form');
+        const form    = document.querySelector('.quantum-form') || document.querySelector('.connectai-form');
         const overlay = document.getElementById('csb-overlay');
         form.reset();
         form.querySelectorAll('input,textarea').forEach(f => {
@@ -330,9 +341,13 @@
 
     /* ── INIT ── */
     function init() {
-        const form = document.querySelector('.quantum-form');
-        const wrap = document.querySelector('.contact-hub-form');
-        if (!form || !wrap) return;
+        const form = document.querySelector('.quantum-form') || document.querySelector('.connectai-form');
+        const wrap = document.querySelector('.contact-hub-form') || document.querySelector('.connectai-right');
+        console.log('[Contact Form] Init - Form found:', !!form, 'Wrap found:', !!wrap);
+        if (!form || !wrap) {
+            console.warn('[Contact Form] Form or wrapper not found');
+            return;
+        }
 
         /* Init EmailJS */
         if (typeof emailjs !== 'undefined') {
