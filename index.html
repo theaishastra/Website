@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The AI Shastra</title>
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Space+Grotesk:wght@300;500;700&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Hide content initially */
+        body {
+            visibility: hidden;
+        }
+
+        /* Blur effect when DevTools detected */
+        .devtools-open {
+            filter: blur(8px);
+            pointer-events: none;
+            user-select: none;
+        }
+    </style>
+
+    <script>
+        (function () {
+
+            // 🚫 Disable right-click
+            document.addEventListener("contextmenu", function (e) {
+                e.preventDefault();
+            });
+
+            // 🚫 Disable shortcut keys
+            document.addEventListener("keydown", function (e) {
+                if (e.key === "F12") e.preventDefault();
+
+                if (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key)) {
+                    e.preventDefault();
+                }
+
+                if (e.ctrlKey && e.key === "u") {
+                    e.preventDefault();
+                }
+            });
+
+            // 🔍 DevTools detection function
+            function detectDevTools() {
+                let threshold = 150;
+
+                if (
+                    window.outerWidth - window.innerWidth > threshold ||
+                    window.outerHeight - window.innerHeight > threshold
+                ) {
+                    return true;
+                }
+                return false;
+            }
+
+            // 🔄 React when detected
+            function handleDetection() {
+                if (detectDevTools()) {
+                    document.body.classList.add("devtools-open");
+
+                    // Replace content (optional strong action)
+                    document.body.innerHTML = "<h1 style='text-align:center;margin-top:20%'>⚠️ Access Denied</h1>";
+                }
+            }
+
+            // Run detection continuously
+            setInterval(handleDetection, 500);
+
+            // 👁️ Show content only after page loads
+            document.addEventListener("DOMContentLoaded", function () {
+                document.body.style.visibility = "visible";
+            });
+
+        })();
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+
+<body>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <!-- Global Interactive Particle Background -->
+    <canvas id="global-particle-canvas"
+        style="position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:0.3;"></canvas>
+
+
+
+    <nav>
+        <a href="#home" class="logo">
+            <img src="assets/logo.png" alt="AI Shastra Logo">
+            <span>The AI Shastra</span>
+        </a>
+        <div class="nav-links" id="navLinks">
+            <a href="#home" data-tooltip="Welcome to AI Shastra">Home</a>
+            <a href="#codex" data-tooltip="Our mission and values">Our Vision</a>
+            <a href="#forge" data-tooltip="AI solutions for your business">Solutions</a>
+            <a href="#training" data-tooltip="Learn AI skills with us">Learning</a>
+            <a href="#team" data-tooltip="Meet our team">Team</a>
+            <a href="#fellowship" data-tooltip="Join our internship program">Internship</a>
+            <a href="#community" data-tooltip="Join our community">Community</a>
+            <a href="#contact" data-tooltip="Get in touch with us">Contact</a>
+        </div>
+
+        <button class="btn-citrus" style="display:none" id="navCta">Let's Talk</button>
+        <div class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <!-- ══ IPL LIVE SCORE TICKER ══ -->
+    <div id="ipl-ticker">
+        <div class="ticker-label"><i class="fas fa-circle ipl-live-dot"></i> IPL LIVE</div>
+        <div class="ticker-track-wrap">
+            <div class="ticker-track" id="ticker-track">
+                <span class="ticker-loading">Fetching live scores…</span>
+            </div>
+        </div>
+        <div class="ticker-refresh" id="ticker-refresh-time">--</div>
+    </div>
+
+    <!-- SUTRA ZERO — Home -->
+    <section id="home" class="hero">
+        <canvas id="matrix-canvas"></canvas>
+        <div class="hero-logo-container">
+            <img src="assets/logo1.png" class="hero-center-logo" alt="AI Shastra Logo" data-aos="zoom-in"
+                data-aos-delay="600">
+        </div>
+        <div class="hero-content" data-aos="fade-right">
+            <div class="hero-tagline" data-aos="fade-up" data-aos-delay="400">
+                <span class="tag-accent">AI SHASTRA</span>
+                <div
+                    style="font-size: 1.2rem; margin-top: 10px; opacity: 0.8; font-family: 'Space Grotesk', sans-serif;">
+                    Where Human Power Meets Machine Intelligence</div>
+            </div>
+
+            <!-- <h1>Dominate the <span class="grad-text">AI Era</span> with Real Skills.</h1> -->
+            <p id="hero-typewriter" style="max-width: 600px; margin: 20px 0; font-size: 1.1rem; line-height: 1.6;">
+                We are architects of an intelligent tomorrow — rooted in the timeless wisdom of India, forged in the
+                fire of modern AI, and driven by one singular truth: technology must serve humanity, not the other way
+                around.
+            </p>
+            <div class="hero-btns">
+                <button class="btn-citrus"
+                    onclick="document.querySelector('#training').scrollIntoView({behavior:'smooth'})">Enter The
+                    Sharpening</button>
+                <button class="btn-ghost"
+                    onclick="document.querySelector('#forge').scrollIntoView({behavior:'smooth'})">Explore The
+                    Forge</button>
+            </div>
+        </div>
+        <div class="hero-dashboard" data-aos="fade-left">
+            <div class="dash-card">
+                <div class="dash-header">
+                    <div>
+                        <p class="dash-header-sub">Explore Our</p>
+                        <h3 class="dash-header-title">Offerings</h3>
+                    </div>
+                    <div class="dash-live">
+                        <div class="dash-live-dot"></div><span>Live</span>
+                    </div>
+                </div>
+
+                <div class="offerings-grid">
+                    <div class="offering-card">
+                        <div class="offering-header">
+                            <div class="offering-icon"><i class="fas fa-lightbulb"></i></div>
+                            <div class="offering-meta">
+                                <div class="offering-metric">10+</div>
+                                <div class="offering-metric-label">Automated</div>
+                            </div>
+                        </div>
+                        <div class="offering-title">Solutions</div>
+                        <div class="offering-desc">AI-powered business solutions tailored for enterprises</div>
+                        <a href="#forge" class="offering-link">Explore <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="offering-card">
+                        <div class="offering-header">
+                            <div class="offering-icon"><i class="fas fa-book"></i></div>
+                            <div class="offering-meta">
+                                <div class="offering-metric">7+</div>
+                                <div class="offering-metric-label">Courses</div>
+                            </div>
+                        </div>
+                        <div class="offering-title">Expert Programs</div>
+                        <div class="offering-desc">Expert-led training programs in AI & Machine Learning</div>
+                        <a href="#training" class="offering-link">Learn <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="learners-bar">
+                    <div class="learners-icon"><i class="fas fa-users"></i></div>
+                    <div class="learners-content">
+                        <div class="learners-label">Active Learners</div>
+                        <div class="learners-value">100+</div>
+                    </div>
+                </div>
+
+                <div class="impact-cta">
+                    <button class="btn-impact" onclick="document.querySelector('#training').scrollIntoView({behavior:'smooth'})">
+                        Get Started <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="stat-strip">
+        <div class="stat-strip-item">
+            <h4>10</h4>
+            <p>Training Programs</p>
+        </div>
+        <div class="stat-strip-item">
+            <h4>7</h4>
+            <p>Business Solutions</p>
+        </div>
+        <div class="stat-strip-item">
+            <h4>100%</h4>
+            <p>Hands-On Learning</p>
+        </div>
+        <div class="stat-strip-item">
+            <h4>AI</h4>
+            <p>Powered Future</p>
+        </div>
+    </div>
+
+    <!-- TRUSTED PARTNERS — Horizontal Scrolling -->
+    <section id="partners" class="partners-section">
+        <div class="partners-container">
+            <h3 class="partners-title" data-aos="fade-up">Our Trusted Partners</h3>
+            <div class="partners-scroll" data-aos="fade-up" data-aos-delay="200">
+                <div class="partner-card">
+                    <div class="partner-logo-wrap">
+                        <img src="assets/Cheyutha.png" alt="Cheyutha Logo">
+                    </div>
+                    <p class="partner-name">Cheyutha</p>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-logo-wrap">
+                        <img src="assets/Harshitha_Plastics.png" alt="Harshitha Plastics Logo">
+                    </div>
+                    <p class="partner-name">Harshitha Plastics</p>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-logo-wrap">
+                        <img src="assets/Aayush_Kalpa.jpg" alt="Aayush Kalpa Logo">
+                    </div>
+                    <p class="partner-name">Aayush Kalpa</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- THE CODEX — Vision & Values -->
+    <section id="codex" class="section">
+        <div class="section-header" data-aos="fade-up">
+            <span class="sec-tag">Our Vision & Values</span>
+            <h2>Our Architectural Principles</h2>
+            <p>Built on the foundation of transparency, excellence, and human-centric AI design.</p>
+        </div>
+
+        <div class="codex-new-layout">
+            <div class="codex-visual" data-aos="fade-right">
+                <div class="codex-img-wrap">
+                    <img src="assets/daily_pulse.png" alt="AI Shastra Vision & Values">
+                    <div class="img-scan"></div>
+                    <div class="img-glow"></div>
+                </div>
+                <div class="codex-quote-new">
+                    "AI is not a force greater than the human mind. It is a powerful instrument that amplifies human
+                    capability when wielded with wisdom."
+                </div>
+            </div>
+
+            <div class="codex-pillars-grid" data-aos="fade-up" data-aos-delay="200">
+                <div class="pillar-card modern-card" data-aos="fade-up" data-aos-delay="0">
+                    <div class="card-accent"></div>
+                    <div class="pillar-icon-box modern-icon"><i class="fas fa-globe"></i></div>
+                    <h4>AI for Everyone</h4>
+                    <p>AI should be for everyone, not just tech experts. We make AI simple and useful for all.</p>
+                </div>
+                <div class="pillar-card modern-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card-accent"></div>
+                    <div class="pillar-icon-box modern-icon"><i class="fas fa-gears"></i></div>
+                    <h4>Smart Work Systems</h4>
+                    <p>Use AI to automate boring work. Businesses grow faster and smarter.</p>
+                </div>
+                <div class="pillar-card modern-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card-accent"></div>
+                    <div class="pillar-icon-box modern-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h4>Train Great Talent</h4>
+                    <p>Teach people real AI skills they can use right away. Build the next generation of AI experts.</p>
+                </div>
+                <div class="pillar-card modern-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card-accent"></div>
+                    <div class="pillar-icon-box modern-icon"><i class="fas fa-robot"></i></div>
+                    <h4>Smart AI Agents</h4>
+                    <p>AI that thinks and works on its own. Can handle tough business tasks automatically.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE FORGE ROOM — AI Tools Development -->
+    <section id="forge" class="section section-yellow">
+        <div class="section-header" data-aos="fade-up">
+            <span class="sec-tag">Business Solutions</span>
+            <h2>The Ultimate Business Transformation</h2>
+            <div style="margin-top: 25px; padding: 20px; background: rgba(234, 179, 8, 0.05); border-left: 4px solid var(--yellow); font-style: italic; border-radius: 0 12px 12px 0; max-width: 600px; margin-left: auto; margin-right: auto;"
+                data-aos="fade-left">
+                <div style="font-size: 1.25rem; font-weight: 700; color: var(--text-dark); margin-bottom: 8px;">"We do
+                    not automate business processes. We liberate human potential from repetitive chains."</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted); font-weight: 600;">— The AI Shastra Philosophy
+                </div>
+            </div>
+        </div>
+        <div class="forge-layout">
+            <!-- LEFT 3 CARDS -->
+            <div class="forge-cards-left" data-aos="fade-right">
+                <div class="forge-card-v">
+                    <div class="scan-line"></div>
+                    <div class="forge-conn">
+                        <div class="flow-dot"></div>
+                    </div>
+                    <span class="fv-num">01</span>
+                    <div class="fv-icon"><i class="fas fa-microchip"></i></div>
+                    <div>
+                        <h3>Automate Your Work</h3>
+                        <p>Let AI handle repetitive tasks and speed up your daily work. Save time and reduce errors.</p>
+                    </div>
+                </div>
+                <div class="forge-card-v">
+                    <div class="scan-line"></div>
+                    <div class="forge-conn">
+                        <div class="flow-dot"></div>
+                    </div>
+                    <span class="fv-num">02</span>
+                    <div class="fv-icon"><i class="fas fa-robot"></i></div>
+                    <div>
+                        <h3>Custom AI Solutions</h3>
+                        <p>AI built just for you. We create smart tools that fit your business perfectly.</p>
+                    </div>
+                </div>
+                <div class="forge-card-v">
+                    <div class="scan-line"></div>
+                    <div class="forge-conn">
+                        <div class="flow-dot"></div>
+                    </div>
+                    <span class="fv-num">03</span>
+                    <div class="fv-icon"><i class="fas fa-map-marked-alt"></i></div>
+                    <div>
+                        <h3>AI Planning & Advice</h3>
+                        <p>We help you plan how to use AI in your business for maximum growth and savings.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CENTER ROBOT -->
+            <div class="forge-robo" data-aos="fade-up">
+                <div class="ring1"></div>
+                <div class="ring2"></div>
+                <div class="ring3"></div>
+                <svg viewBox="0 0 480 580" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <radialGradient id="eyeGlowL" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#fef9c3" />
+                            <stop offset="100%" stop-color="#22c55e" stop-opacity="0" />
+                        </radialGradient>
+                        <radialGradient id="coreGrad" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#eab308" stop-opacity="0.9" />
+                            <stop offset="60%" stop-color="#22c55e" stop-opacity="0.3" />
+                            <stop offset="100%" stop-color="#16a34a" stop-opacity="0" />
+                        </radialGradient>
+                        <radialGradient id="ambientGlow" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#22c55e" stop-opacity="0.06" />
+                            <stop offset="100%" stop-color="#22c55e" stop-opacity="0" />
+                        </radialGradient>
+                        <filter id="eglow" x="-80%" y="-80%" width="260%" height="260%">
+                            <feGaussianBlur stdDeviation="5" result="blur" />
+                            <feMerge>
+                                <feMergeNode in="blur" />
+                                <feMergeNode in="SourceGraphic" />
+                            </feMerge>
+                        </filter>
+                        <filter id="sglow" x="-150%" y="-150%" width="400%" height="400%">
+                            <feGaussianBlur stdDeviation="12" result="blur" />
+                            <feMerge>
+                                <feMergeNode in="blur" />
+                                <feMergeNode in="SourceGraphic" />
+                            </feMerge>
+                        </filter>
+                    </defs>
+
+                    <ellipse cx="240" cy="340" rx="190" ry="215" fill="url(#ambientGlow)" />
+
+                    <!-- ORBIT RINGS -->
+                    <g opacity="0.25">
+                        <ellipse cx="240" cy="328" rx="178" ry="58" stroke="#22c55e" stroke-width="1"
+                            stroke-dasharray="5 9" fill="none">
+                            <animateTransform attributeName="transform" type="rotate" from="0 240 328" to="360 240 328"
+                                dur="9s" repeatCount="indefinite" />
+                        </ellipse>
+                    </g>
+                    <g opacity="0.14">
+                        <ellipse cx="240" cy="328" rx="204" ry="72" stroke="#eab308" stroke-width="0.8"
+                            stroke-dasharray="3 13" fill="none">
+                            <animateTransform attributeName="transform" type="rotate" from="360 240 328" to="0 240 328"
+                                dur="14s" repeatCount="indefinite" />
+                        </ellipse>
+                    </g>
+                    <g opacity="0.1">
+                        <ellipse cx="240" cy="328" rx="158" ry="46" stroke="#86efac" stroke-width="0.7"
+                            stroke-dasharray="2 10" fill="none">
+                            <animateTransform attributeName="transform" type="rotate" from="45 240 328" to="405 240 328"
+                                dur="7s" repeatCount="indefinite" />
+                        </ellipse>
+                    </g>
+
+                    <!-- ANTENNA -->
+                    <line x1="240" y1="76" x2="240" y2="44" stroke="#eab308" stroke-width="2" opacity="0.5" />
+                    <line x1="232" y1="52" x2="240" y2="44" stroke="#eab308" stroke-width="1.5" opacity="0.4" />
+                    <line x1="248" y1="52" x2="240" y2="44" stroke="#eab308" stroke-width="1.5" opacity="0.4" />
+                    <circle cx="240" cy="38" r="10" fill="#22c55e" opacity="0.15" filter="url(#sglow)">
+                        <animate attributeName="r" values="10;15;10" dur="2s" repeatCount="indefinite" />
+                        <animate attributeName="opacity" values="0.15;0.5;0.15" dur="2s" repeatCount="indefinite" />
+                    </circle>
+                    <circle cx="240" cy="38" r="5" fill="#eab308" filter="url(#eglow)">
+                        <animate attributeName="opacity" values="0.9;0.4;0.9" dur="2s" repeatCount="indefinite" />
+                    </circle>
+
+                    <!-- HEAD -->
+                    <rect x="153" y="76" width="174" height="132" rx="24" fill="#e8f9f1" stroke="#22c55e"
+                        stroke-width="1.5" />
+                    <rect x="165" y="88" width="150" height="108" rx="16" fill="#d1fae5" stroke="#22c55e"
+                        stroke-width="0.8" opacity="0.5" />
+                    <path d="M 165,104 L 165,88 L 181,88" stroke="#22c55e" stroke-width="1.5" fill="none"
+                        opacity="0.55" />
+                    <path d="M 315,104 L 315,88 L 299,88" stroke="#22c55e" stroke-width="1.5" fill="none"
+                        opacity="0.55" />
+                    <path d="M 165,180 L 165,196 L 181,196" stroke="#22c55e" stroke-width="1.5" fill="none"
+                        opacity="0.55" />
+                    <path d="M 315,180 L 315,196 L 299,196" stroke="#22c55e" stroke-width="1.5" fill="none"
+                        opacity="0.55" />
+
+                    <!-- EYE SOCKETS -->
+                    <rect x="176" y="112" width="56" height="40" rx="10" fill="#a7f3d0" />
+                    <rect x="248" y="112" width="56" height="40" rx="10" fill="#a7f3d0" />
+
+                    <!-- LEFT EYE -->
+                    <ellipse id="lGlow" cx="204" cy="132" rx="22" ry="15" fill="#22c55e" opacity="0.12"
+                        filter="url(#sglow)" style="transition:rx 0.2s,ry 0.2s">
+                        <animate attributeName="opacity" values="0.12;0.45;0.12" dur="3s" repeatCount="indefinite" />
+                    </ellipse>
+                    <ellipse id="lIris" cx="204" cy="132" rx="17" ry="11" fill="url(#eyeGlowL)" filter="url(#eglow)"
+                        style="transition:rx 0.2s,ry 0.2s">
+                        <animate attributeName="opacity" values="1;0.5;1" dur="3s" repeatCount="indefinite" />
+                    </ellipse>
+                    <ellipse id="lPupil" cx="204" cy="132" rx="8" ry="6" fill="#16a34a" opacity="0.95"
+                        style="transition:rx 0.2s,ry 0.2s" />
+                    <ellipse id="lHL" cx="200" cy="129" rx="3" ry="2" fill="#FFFFFF" opacity="0.75" />
+
+                    <!-- RIGHT EYE -->
+                    <ellipse id="rGlow" cx="276" cy="132" rx="22" ry="15" fill="#22c55e" opacity="0.12"
+                        filter="url(#sglow)" style="transition:rx 0.2s,ry 0.2s">
+                        <animate attributeName="opacity" values="0.12;0.45;0.12" dur="3s" begin="0.3s"
+                            repeatCount="indefinite" />
+                    </ellipse>
+                    <ellipse id="rIris" cx="276" cy="132" rx="17" ry="11" fill="url(#eyeGlowL)" filter="url(#eglow)"
+                        style="transition:rx 0.2s,ry 0.2s">
+                        <animate attributeName="opacity" values="1;0.5;1" dur="3s" begin="0.3s"
+                            repeatCount="indefinite" />
+                    </ellipse>
+                    <ellipse id="rPupil" cx="276" cy="132" rx="8" ry="6" fill="#16a34a" opacity="0.95"
+                        style="transition:rx 0.2s,ry 0.2s" />
+                    <ellipse id="rHL" cx="272" cy="129" rx="3" ry="2" fill="#FFFFFF" opacity="0.75" />
+
+                    <!-- STATUS DOTS -->
+                    <circle cx="190" cy="98" r="3" fill="#22c55e">
+                        <animate attributeName="opacity" values="0.8;0.2;0.8" dur="1.8s" repeatCount="indefinite" />
+                    </circle>
+                    <circle cx="203" cy="98" r="3" fill="#eab308">
+                        <animate attributeName="opacity" values="0.6;0.2;0.6" dur="1.8s" begin="0.4s"
+                            repeatCount="indefinite" />
+                    </circle>
+                    <circle cx="216" cy="98" r="3" fill="#86efac">
+                        <animate attributeName="opacity" values="0.4;0.1;0.4" dur="1.8s" begin="0.8s"
+                            repeatCount="indefinite" />
+                    </circle>
+
+                    <!-- LED MOUTH (audio visualizer) -->
+                    <rect x="187" y="166" width="106" height="22" rx="5" fill="#bbf7d0" stroke="#22c55e"
+                        stroke-width="0.6" opacity="0.8" />
+                    <rect x="193" y="170" width="9" height="14" rx="2" fill="#22c55e">
+                        <animate attributeName="height" values="14;4;11;14" dur="1.6s" begin="0s"
+                            repeatCount="indefinite" />
+                        <animate attributeName="y" values="170;180;173;170" dur="1.6s" begin="0s"
+                            repeatCount="indefinite" />
+                    </rect>
+                    <rect x="206" y="170" width="9" height="14" rx="2" fill="#eab308">
+                        <animate attributeName="height" values="14;8;5;14" dur="1.6s" begin="0.15s"
+                            repeatCount="indefinite" />
+                        <animate attributeName="y" values="170;176;179;170" dur="1.6s" begin="0.15s"
+                            repeatCount="indefinite" />
+                    </rect>
+                    <rect x="219" y="170" width="9" height="14" rx="2" fill="#22c55e">
+                        <animate attributeName="height" values="14;3;9;14" dur="1.6s" begin="0.3s"
+                            repeatCount="indefinite" />
+                        <animate attributeName="y" values="170;181;175;170" dur="1.6s" begin="0.3s"
+                            repeatCount="indefinite" />
+                    </rect>
+                    <rect x="232" y="170" width="9" height="14" rx="2" fill="#86efac">
+                        <animate attributeName="height" values="14;9;4;14" dur="1.6s" begin="0.45s"
+                            repeatCount="indefinite" />
+                        <animate attributeName="y" values="170;175;180;170" dur="1.6s" begin="0.45s"
+                            repeatCount="indefinite" />
+                    </rect>
+                    <rect x="245" y="170" width="9" height="14" rx="2" fill="#22c55e">
+                        <animate attributeName="height" values="14;6;12;14" dur="1.6s" begin="0.6s"
+                            repeatCount="indefinite" />
+                        <animate attributeName="y" values="170;178;172;170" dur="1.6s" begin="0.6s"
+                            repeatCount="indefinite" />
+                    </rect>
+                    <rect x="258" y="170" width="9" height="14" rx="2" fill="#eab308">
+                        <animate attributeName="height" values="14;10;3;14" dur="1.6s" begin="0.75s"
+                            repeatCount="indefinite" />
+                        <animate attributeName="y" values="170;174;181;170" dur="1.6s" begin="0.75s"
+                            repeatCount="indefinite" />
+                    </rect>
+                    <rect x="271" y="170" width="9" height="14" rx="2" fill="#22c55e">
+                        <animate attributeName="height" values="14;5;10;14" dur="1.6s" begin="0.9s"
+                            repeatCount="indefinite" />
+                        <animate attributeName="y" values="170;179;174;170" dur="1.6s" begin="0.9s"
+                            repeatCount="indefinite" />
+                    </rect>
+                    <rect x="284" y="170" width="9" height="14" rx="2" fill="#86efac">
+                        <animate attributeName="height" values="14;7;4;14" dur="1.6s" begin="1.05s"
+                            repeatCount="indefinite" />
+                        <animate attributeName="y" values="170;177;180;170" dur="1.6s" begin="1.05s"
+                            repeatCount="indefinite" />
+                    </rect>
+
+                    <!-- NECK -->
+                    <rect x="217" y="208" width="46" height="24" rx="8" fill="#d1fae5" stroke="#22c55e" stroke-width="1"
+                        opacity="0.9" />
+                    <line x1="226" y1="212" x2="226" y2="229" stroke="#22c55e" stroke-width="1" opacity="0.35" />
+                    <line x1="240" y1="212" x2="240" y2="229" stroke="#22c55e" stroke-width="1" opacity="0.35" />
+                    <line x1="254" y1="212" x2="254" y2="229" stroke="#22c55e" stroke-width="1" opacity="0.35" />
+
+                    <!-- SHOULDERS -->
+                    <rect x="100" y="230" width="82" height="34" rx="12" fill="#e8f9f1" stroke="#22c55e"
+                        stroke-width="1.2" />
+                    <rect x="298" y="230" width="82" height="34" rx="12" fill="#e8f9f1" stroke="#22c55e"
+                        stroke-width="1.2" />
+                    <circle cx="141" cy="247" r="8" fill="#22c55e" opacity="0.15" />
+                    <circle cx="141" cy="247" r="4" fill="#22c55e" opacity="0.5">
+                        <animate attributeName="opacity" values="0.5;0.1;0.5" dur="2.5s" repeatCount="indefinite" />
+                    </circle>
+                    <circle cx="339" cy="247" r="8" fill="#22c55e" opacity="0.15" />
+                    <circle cx="339" cy="247" r="4" fill="#eab308" opacity="0.5">
+                        <animate attributeName="opacity" values="0.5;0.1;0.5" dur="2.5s" begin="0.8s"
+                            repeatCount="indefinite" />
+                    </circle>
+
+                    <!-- ARMS -->
+                    <rect x="104" y="264" width="32" height="122" rx="10" fill="#e8f9f1" stroke="#22c55e"
+                        stroke-width="1" />
+                    <line x1="120" y1="278" x2="120" y2="374" stroke="#22c55e" stroke-width="0.7" opacity="0.4" />
+                    <rect x="102" y="316" width="36" height="14" rx="4" fill="#22c55e" opacity="0.12" />
+                    <rect x="344" y="264" width="32" height="122" rx="10" fill="#e8f9f1" stroke="#22c55e"
+                        stroke-width="1" />
+                    <line x1="360" y1="278" x2="360" y2="374" stroke="#22c55e" stroke-width="0.7" opacity="0.4" />
+                    <rect x="342" y="316" width="36" height="14" rx="4" fill="#22c55e" opacity="0.12" />
+
+                    <!-- HANDS -->
+                    <rect x="101" y="386" width="38" height="26" rx="8" fill="#d1fae5" stroke="#22c55e"
+                        stroke-width="0.8" opacity="0.9" />
+                    <rect x="341" y="386" width="38" height="26" rx="8" fill="#d1fae5" stroke="#22c55e"
+                        stroke-width="0.8" opacity="0.9" />
+
+                    <!-- TORSO -->
+                    <rect x="140" y="230" width="200" height="196" rx="20" fill="#e8f9f1" stroke="#22c55e"
+                        stroke-width="1.5" />
+                    <rect x="153" y="243" width="174" height="170" rx="14" fill="#d1fae5" stroke="#22c55e"
+                        stroke-width="0.6" opacity="0.6" />
+                    <path d="M 153,260 L 153,243 L 170,243" stroke="#22c55e" stroke-width="1.5" fill="none"
+                        opacity="0.4" />
+                    <path d="M 327,260 L 327,243 L 310,243" stroke="#22c55e" stroke-width="1.5" fill="none"
+                        opacity="0.4" />
+                    <line x1="163" y1="268" x2="196" y2="268" stroke="#22c55e" stroke-width="0.8" opacity="0.3" />
+                    <line x1="196" y1="268" x2="196" y2="286" stroke="#22c55e" stroke-width="0.8" opacity="0.3" />
+                    <line x1="196" y1="286" x2="172" y2="286" stroke="#22c55e" stroke-width="0.8" opacity="0.3" />
+                    <circle cx="172" cy="286" r="3" fill="#22c55e" opacity="0.5">
+                        <animate attributeName="opacity" values="0.5;0.1;0.5" dur="3s" repeatCount="indefinite" />
+                    </circle>
+                    <line x1="317" y1="268" x2="284" y2="268" stroke="#22c55e" stroke-width="0.8" opacity="0.3" />
+                    <line x1="284" y1="268" x2="284" y2="286" stroke="#22c55e" stroke-width="0.8" opacity="0.3" />
+                    <line x1="284" y1="286" x2="308" y2="286" stroke="#22c55e" stroke-width="0.8" opacity="0.3" />
+                    <circle cx="308" cy="286" r="3" fill="#eab308" opacity="0.5">
+                        <animate attributeName="opacity" values="0.5;0.1;0.5" dur="3s" begin="1s"
+                            repeatCount="indefinite" />
+                    </circle>
+
+                    <!-- AI CORE -->
+                    <circle cx="240" cy="330" r="60" fill="url(#coreGrad)" opacity="0.55">
+                        <animate attributeName="r" values="60;68;60" dur="3s" repeatCount="indefinite" />
+                        <animate attributeName="opacity" values="0.55;0.3;0.55" dur="3s" repeatCount="indefinite" />
+                    </circle>
+                    <circle cx="240" cy="330" r="43" fill="none" stroke="#22c55e" stroke-width="1.2"
+                        stroke-dasharray="8 5" opacity="0.5">
+                        <animateTransform attributeName="transform" type="rotate" from="0 240 330" to="360 240 330"
+                            dur="5s" repeatCount="indefinite" />
+                    </circle>
+                    <circle cx="240" cy="330" r="34" fill="#d1fae5" stroke="#22c55e" stroke-width="1.5" opacity="0.9" />
+                    <circle cx="240" cy="330" r="24" fill="#e8f9f1" stroke="#eab308" stroke-width="1" opacity="0.9" />
+                    <text x="240" y="327" text-anchor="middle" dominant-baseline="middle"
+                        font-family="'Space Grotesk',sans-serif" font-size="13" font-weight="700" fill="#eab308"
+                        opacity="0.95" letter-spacing="2">AI</text>
+                    <text x="240" y="341" text-anchor="middle" dominant-baseline="middle"
+                        font-family="'Space Grotesk',sans-serif" font-size="7" font-weight="600" fill="#86efac"
+                        opacity="0.6" letter-spacing="2">CORE</text>
+
+                    <!-- PROGRESS BARS -->
+                    <rect x="163" y="400" width="118" height="5" rx="2.5" fill="#bbf7d0" />
+                    <rect x="163" y="400" width="84" height="5" rx="2.5" fill="#22c55e" opacity="0.8">
+                        <animate attributeName="width" values="84;52;84" dur="4s" repeatCount="indefinite" />
+                        <animate attributeName="opacity" values="0.8;0.4;0.8" dur="4s" repeatCount="indefinite" />
+                    </rect>
+                    <rect x="289" y="400" width="52" height="5" rx="2.5" fill="#fef9c3" />
+                    <rect x="289" y="400" width="36" height="5" rx="2.5" fill="#eab308" opacity="0.8">
+                        <animate attributeName="width" values="36;14;36" dur="4s" begin="1.5s"
+                            repeatCount="indefinite" />
+                    </rect>
+
+                    <!-- FLOATING PARTICLES -->
+                    <circle cx="118" cy="156" r="3.5" fill="#22c55e" opacity="0.4">
+                        <animate attributeName="cy" values="156;143;156" dur="4s" repeatCount="indefinite" />
+                        <animate attributeName="opacity" values="0.4;0.8;0.4" dur="4s" repeatCount="indefinite" />
+                    </circle>
+                    <circle cx="364" cy="192" r="2.5" fill="#eab308" opacity="0.3">
+                        <animate attributeName="cy" values="192;205;192" dur="5s" repeatCount="indefinite" />
+                        <animate attributeName="opacity" values="0.3;0.65;0.3" dur="5s" repeatCount="indefinite" />
+                    </circle>
+                    <circle cx="96" cy="352" r="2" fill="#86efac" opacity="0.25">
+                        <animate attributeName="cy" values="352;340;352" dur="6s" repeatCount="indefinite" />
+                    </circle>
+                    <circle cx="382" cy="312" r="2" fill="#22c55e" opacity="0.2">
+                        <animate attributeName="cy" values="312;324;312" dur="4.5s" repeatCount="indefinite" />
+                    </circle>
+                    <circle cx="150" cy="462" r="3" fill="#eab308" opacity="0.3">
+                        <animate attributeName="cy" values="462;450;462" dur="5.5s" repeatCount="indefinite" />
+                        <animate attributeName="opacity" values="0.3;0.6;0.3" dur="5.5s" repeatCount="indefinite" />
+                    </circle>
+                    <circle cx="342" cy="472" r="2" fill="#86efac" opacity="0.2">
+                        <animate attributeName="cy" values="472;460;472" dur="3.5s" repeatCount="indefinite" />
+                    </circle>
+                </svg>
+            </div>
+
+            <!-- RIGHT 3 CARDS -->
+            <div class="forge-cards-right" data-aos="fade-left">
+                <div class="forge-card-v">
+                    <div class="scan-line"></div>
+                    <div class="forge-conn">
+                        <div class="flow-dot"></div>
+                    </div>
+                    <span class="fv-num">04</span>
+                    <div class="fv-icon"><i class="fas fa-layer-group"></i></div>
+                    <div>
+                        <h3>Smart AI Technology</h3>
+                        <p>Powerful AI that learns and solves tough problems. Perfect for complex business challenges.</p>
+                    </div>
+                </div>
+                <div class="forge-card-v">
+                    <div class="scan-line"></div>
+                    <div class="forge-conn">
+                        <div class="flow-dot"></div>
+                    </div>
+                    <span class="fv-num">05</span>
+                    <div class="fv-icon"><i class="fas fa-chart-pie"></i></div>
+                    <div>
+                        <h3>Smart Data Insights</h3>
+                        <p>Understand your data. Make faster, smarter decisions with AI-powered reports and analysis.</p>
+                    </div>
+                </div>
+                <div class="forge-card-v">
+                    <div class="scan-line"></div>
+                    <div class="forge-conn">
+                        <div class="flow-dot"></div>
+                    </div>
+                    <span class="fv-num">06</span>
+                    <div class="fv-icon"><i class="fas fa-rocket"></i></div>
+                    <div>
+                        <h3>Robots & Automation</h3>
+                        <p>Smart robots that work in factories, farms, and warehouses. Real physical automation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE SHARPENING / SKILLFORGE — Training Module -->
+    <section id="training" class="section">
+        <div class="section-header" data-aos="fade-up">
+            <span class="sec-tag">Training Program</span>
+            <h2>Walk With Us Into the Intelligent Era</h2>
+            <p>The story of AI Shastra does not end at enterprise solutions. We identify talent through potential,
+                nurture it through structured mentorship, and release it into the world as capable AI architects.</p>
+        </div>
+        <div class="sharp-new-layout">
+            <div class="sharp-visual" data-aos="fade-right">
+                <div class="sharp-img-wrap">
+                    <img src="assets/ai_teaching_mentor.png" alt="AI Shastra Teaching Mentor">
+                    <div class="img-scan"></div>
+                </div>
+            </div>
+            <div class="sharp-grid" data-aos="fade-left">
+                <div class="sharp-card">
+                    <div class="gc-icon"><i class="fas fa-brain"></i></div>
+                    <div class="gc-num">01</div>
+                    <h3 class="gc-title">Machine Learning for Beginners</h3>
+                    <p class="gc-desc">Start your AI journey. Learn the basics of machine learning with hands-on projects.</p>
+                    <div class="gc-badge">BEGINNER</div>
+                </div>
+                <div class="sharp-card">
+                    <div class="gc-icon"><i class="fas fa-sparkles"></i></div>
+                    <div class="gc-num">02</div>
+                    <h3 class="gc-title">Generative AI for Beginners</h3>
+                    <p class="gc-desc">Learn how to build and use AI that creates content. Perfect for getting started.</p>
+                    <div class="gc-badge">BEGINNER</div>
+                </div>
+                <div class="sharp-card">
+                    <div class="gc-icon"><i class="fas fa-wand-magic-sparkles"></i></div>
+                    <div class="gc-num">03</div>
+                    <h3 class="gc-title">AI Tools Training</h3>
+                    <p class="gc-desc">Master popular AI tools from scratch. No technical background needed.</p>
+                    <div class="gc-badge">COMPLETE_BEGINNER</div>
+                </div>
+                <div class="sharp-card">
+                    <div class="gc-icon"><i class="fas fa-code"></i></div>
+                    <div class="gc-num">04</div>
+                    <h3 class="gc-title">Advanced Prompting & Vibe Coding</h3>
+                    <p class="gc-desc">Get better results from AI. Learn to write effective prompts and code.</p>
+                    <div class="gc-badge">INTERMEDIATE</div>
+                </div>
+                <div class="sharp-card">
+                    <div class="gc-icon"><i class="fas fa-rocket"></i></div>
+                    <div class="gc-num">05</div>
+                    <h3 class="gc-title">Non-Tech to Tech</h3>
+                    <p class="gc-desc">No tech background? Learn AI from zero. Build confidence and real skills.</p>
+                    <div class="gc-badge">FOR_EVERYONE</div>
+                </div>
+                <div class="sharp-card">
+                    <div class="gc-icon"><i class="fas fa-image"></i></div>
+                    <div class="gc-num">06</div>
+                    <h3 class="gc-title">AI Media Generation</h3>
+                    <p class="gc-desc">Create stunning images, videos, and music with AI. Learn all the tools.</p>
+                    <div class="gc-badge">CREATIVE</div>
+                </div>
+                <div class="sharp-card">
+                    <div class="gc-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <div class="gc-num">07</div>
+                    <h3 class="gc-title">Claude Mastery</h3>
+                    <p class="gc-desc">Master Claude AI. Learn advanced techniques and real-world applications.</p>
+                    <div class="gc-badge">ADVANCE</div>
+                </div>
+                <div class="register-slot" data-aos="zoom-in" data-aos-delay="700">
+                    <a href="#contact" class="register-simple-btn">Register for Course <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE COUNCIL — Core Team -->
+    <section id="team" class="section" style="padding-top: 0;">
+        <div class="section-header" data-aos="fade-up">
+            <span class="sec-tag">Our Team</span>
+            <h2>The Minds Behind the Vision</h2>
+            <p>Our team is driven by dedication and focus. We are problem-solvers, innovators, and builders of the future committed to a single conviction: making human life better through technology.</p>
+        </div>
+
+        <div class="council-new-layout">
+            <div class="council-visual" data-aos="fade-right">
+                <div class="council-img-wrap">
+                    <img src="assets/the_council_ai_developers.png" alt="The AI Shastra Council AI Developers">
+                    <div class="img-scan"></div>
+                </div>
+            </div>
+
+            <div class="council-grid" data-aos="fade-left">
+                <div class="council-card">
+                    <div class="gc-icon"><i class="fas fa-user-astronaut"></i></div>
+                    <h3 class="gc-title">Hrushi</h3>
+                    <span class="role-badge">Full Stack & App Architect</span>
+                </div>
+                <div class="council-card">
+                    <div class="gc-icon"><i class="fas fa-brain"></i></div>
+                    <h3 class="gc-title">Bhavaani</h3>
+                    <span class="role-badge">AI Automations Expert</span>
+                </div>
+                <div class="council-card">
+                    <div class="gc-icon"><i class="fas fa-microchip"></i></div>
+                    <h3 class="gc-title">Deekshitha</h3>
+                    <span class="role-badge">AIML Solutions Engineer</span>
+                </div>
+                <div class="council-card">
+                    <div class="gc-icon"><i class="fas fa-network-wired"></i></div>
+                    <h3 class="gc-title">Bhaskar</h3>
+                    <span class="role-badge">ML & Data Analytics Specialist</span>
+                </div>
+                <div class="council-card">
+                    <div class="gc-icon"><i class="fas fa-robot"></i></div>
+                    <h3 class="gc-title">Mohan</h3>
+                    <span class="role-badge">Gen AI & Agentic AI Pioneer</span>
+                </div>
+                <div class="council-card">
+                    <div class="gc-icon"><i class="fas fa-wand-magic-sparkles"></i></div>
+                    <h3 class="gc-title">Chandana</h3>
+                    <span class="role-badge">Gen AI Engineer</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE TRIBE — Careers for AI Trainers -->
+    <section id="fellowship" class="section section-alt">
+        <div class="section-header" data-aos="fade-up">
+            <span class="sec-tag">Join Our Community</span>
+            <h2>Join Our Community of AI Builders</h2>
+            <p>Become part of a mission-driven community shaping the next generation of AI professionals.</p>
+        </div>
+        <div class="fellow-wrap">
+
+            <div class="fellow-left" data-aos="fade-right">
+                <span class="sec-tag">3-Month Internship Program</span>
+                <h2>Generative AI Intern Program</h2>
+                <p>A hands-on program to work on real-time AI projects — not a full-time opportunity, but a chance to
+                    gain real-world experience through live projects and expert mentorship.</p>
+                <div class="fellow-steps">
+                    <div class="fellow-step">
+                        <div class="fellow-badge">01</div>
+                        <div>
+                            <h4>Apply & Onboard</h4>
+                            <p>Submit your resume to <strong>theaishastra@gmail.com</strong>. Selected candidates get onboarded within 48 hours.</p>
+                        </div>
+                    </div>
+                    <div class="fellow-step">
+                        <div class="fellow-badge">02</div>
+                        <div>
+                            <h4>Work on Live Projects</h4>
+                            <p>From day one, you're assigned to real AI-based projects with defined deliverables and timelines. Learn by doing.</p>
+                        </div>
+                    </div>
+                    <div class="fellow-step">
+                        <div class="fellow-badge">03</div>
+                        <div>
+                            <h4>Get Evaluated</h4>
+                            <p>Weekly reviews by expert mentors. Consistent performers receive performance-based stipends.</p>
+                        </div>
+                    </div>
+                    <div class="fellow-step">
+                        <div class="fellow-badge">04</div>
+                        <div>
+                            <h4>Certification & Portfolio</h4>
+                            <p>Complete the 3-month program with a completion certificate, hands-on industry exposure, and real projects in your portfolio.</p>
+                        </div>
+                    </div>
+                </div>
+                <a class="btn-citrus" style="margin-top:20px; display: inline-block; text-decoration: none;"
+                    href="mailto:theaishastra@gmail.com?subject=Internship%20Application&body=Hi%20AI%20Shastra%2C%0A%0AI%20am%20interested%20in%20the%203-month%20internship%20program.%20Please%20find%20my%20resume%20attached.%0A%0AThank%20you">Send Resume to Apply</a>
+            </div>
+            <div class="fellow-right" data-aos="fade-left">
+                <div class="fellow-terminal">
+                    <div class="term-bar">
+                        <div class="t-dot r"></div>
+                        <div class="t-dot y"></div>
+                        <div class="t-dot g"></div>
+                        <span class="term-title">career_protocol.ts</span>
+                    </div>
+                    <div class="term-body">
+                        <span class="t-line t-comment">// THE_AI_SHASTRA — INTERNSHIP_FLOW</span>
+                        <span class="t-line"><span class="t-kw">const</span> <span class="t-fn">InternshipJourney</span> = {</span>
+                        <span class="t-line"> <span class="t-key">who</span>: <span class="t-str">"Students & Freshers"</span>,</span>
+                        <span class="t-line"> <span class="t-key">when</span>: <span class="t-str">"3 Months Intensive"</span>,</span>
+                        <span class="t-line"> <span class="t-key">what</span>: [<span class="t-str">"🚀 Real Projects"</span>, <span class="t-str">"💻 Hands-On Work"</span>, <span class="t-str">"🤖 AI Development"</span>],</span>
+                        <span class="t-line"> <span class="t-key">reward</span>: [<span class="t-str">"📜 Certificate"</span>, <span class="t-str">"💰 Performance Stipend"</span>, <span class="t-str">"📁 Portfolio"</span>]</span>
+                        <span class="t-line">};</span>
+
+                        <span class="t-line t-comment" style="margin-top:12px">// ▸ YOUR JOURNEY STARTS HERE ◂</span>
+                        <span class="t-line" style="margin-top:10px"><span class="t-key">~/shastra $</span> send-resume<span class="t-cursor"></span></span>
+                        <span class="t-line" style="margin-top:8px; opacity:0.8;"><span style="color: var(--green);">↓</span> <span style="color: var(--yellow);">📧 theaishastra@gmail.com</span></span>
+                        <span class="t-line" style="margin-top:8px; opacity:0.8;"><span style="color: var(--green);">↓</span> <span style="color: var(--yellow);">⏱️ 48hrs Review & Onboard</span></span>
+                        <span class="t-line" style="margin-top:8px; opacity:0.8;"><span style="color: var(--green);">↓</span> <span style="color: var(--yellow);">🎯 Day 1: Real Project Assignment</span></span>
+                        <span class="t-line" style="margin-top:8px; opacity:0.8;"><span style="color: var(--green);">↓</span> <span style="color: var(--yellow);">📊 Weekly Mentor Reviews</span></span>
+                        <span class="t-line" style="margin-top:8px; opacity:0.8;"><span style="color: var(--green);">↓</span> <span style="color: var(--yellow);">🏆 Earn Certificate & Rewards</span></span>
+
+                        <div class="term-action">
+                            <a class="btn-cli"
+                                href="mailto:theaishastra@gmail.com?subject=Internship%20Application&body=Hi%20AI%20Shastra%2C%0A%0AI%20am%20interested%20in%20the%203-month%20internship%20program.%20Please%20find%20my%20resume%20attached.%0A%0AThank%20you" style="text-decoration: none; display: inline-block;">apply_now.sh</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+    <!-- SHASTRA COMMUNITY — Lifestyle & Events -->
+    <section id="community" class="community-section">
+        <div class="community-header" data-aos="fade-up">
+            <span class="sec-tag">Community & Wellness</span>
+            <h2>Beyond the Algorithm</h2>
+            <p>Fostering a holistic ecosystem of health, wellness, volunteering, and forward-thinking events.</p>
+        </div>
+        <div class="community-grid" data-aos="fade-up" data-aos-delay="100">
+            <div class="community-card wellness-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="card-glow"></div>
+                <div class="card-number">01</div>
+                <div class="card-icon"><i class="fas fa-spa"></i></div>
+                <h3>Yoga & Mindfulness</h3>
+                <p>Start each day with clarity. We integrate yogic principles for peak mental performance and
+                    sustainable wellness.</p>
+                <div class="card-footer">
+                    <span class="practice-count">10K+ Practitioners</span>
+                </div>
+            </div>
+            <div class="community-card volunteer-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="card-glow"></div>
+                <div class="card-number">02</div>
+                <div class="card-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                <h3>Volunteering</h3>
+                <p>Give back through AI literacy programs, community education, and meaningful social welfare
+                    initiatives.</p>
+                <div class="card-footer">
+                    <span class="practice-count">26 + Programs Active</span>
+                </div>
+            </div>
+            <div class="community-card events-card" data-aos="zoom-in" data-aos-delay="200">
+                <div class="card-glow"></div>
+                <div class="card-number">03</div>
+                <div class="card-icon"><i class="fas fa-calendar-days"></i></div>
+                <h3>Upcoming Events</h3>
+                <p>Join the AI Shastra Beginner friendly classes to learn all about Algorithms. Demo Session on
+                    <strong>20th May</strong> and Regular classes start from <strong>23rd May</strong>.
+                </p>
+                <div class="card-footer">
+                    <span class="event-date">🚀 May 20, 2026</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONNECT.AI HUB -->
+    <section id="contact" class="connectai-section">
+        <div class="connectai-wrapper">
+            <div class="connectai-header" data-aos="fade-up">
+                <span class="sec-tag">Contact Us</span>
+                <h2>Ready to Get Started?</h2>
+                <p>Connect with our elite response team to deploy bespoke AI agents or accelerate your organization's
+                    intelligence curve.</p>
+            </div>
+
+            <div class="connectai-grid" data-aos="fade-up" data-aos-delay="200">
+                <!-- Contact Cards -->
+                <div class="connectai-left" data-aos="fade-right">
+                    <div class="contact-methods">
+                        <a class="method-card email-card" href="mailto:theaishastra@gmail.com" data-aos="zoom-in">
+                            <div class="method-icon"><i class="fas fa-envelope"></i></div>
+                            <div class="method-content">
+                                <h4>Direct Uplink</h4>
+                                <p>theaishastra@gmail.com</p>
+                            </div>
+                        </a>
+                        <a class="method-card official-card" href="mailto:info@theaishastra.com" data-aos="zoom-in"
+                            data-aos-delay="100">
+                            <div class="method-icon"><i class="fas fa-shield-halved"></i></div>
+                            <div class="method-content">
+                                <h4>Official Channel</h4>
+                                <p>info@theaishastra.com</p>
+                            </div>
+                        </a>
+                        <a class="method-card whatsapp-card" href="https://wa.me/916309646644" target="_blank"
+                            rel="noopener" data-aos="zoom-in" data-aos-delay="200">
+                            <div class="method-icon"><i class="fab fa-whatsapp"></i></div>
+                            <div class="method-content">
+                                <h4>Contact</h4>
+                                <p>+91 63096 46644</p>
+                            </div>
+                        </a>
+                        <a class="method-card location-card" href="https://maps.google.com/?q=Hyderabad,India"
+                            target="_blank" rel="noopener" data-aos="zoom-in" data-aos-delay="300">
+                            <div class="method-icon"><i class="fas fa-location-dot"></i></div>
+                            <div class="method-content">
+                                <h4>Global Node</h4>
+                                <p>Hyderabad, India</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="connectai-right" data-aos="fade-left" data-aos-delay="300">
+                    <form class="connectai-form" id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="fname" placeholder="Full Name" required>
+                            <div class="input-underline"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="femail" placeholder="Email Address" required>
+                            <div class="input-underline"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="fmobile" placeholder="Mobile Number" required>
+                            <div class="input-underline"></div>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="fmessage" placeholder="Describe your requirements..." required></textarea>
+                            <div class="input-underline"></div>
+                        </div>
+                        <button type="submit" class="btn-submit">
+                            <span>Send Message</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                        <p class="response-time">⚡ Average response: < 4 hours</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="footer-final">
+        <!-- Neural Deco Blooms -->
+
+        <div class="footer-bloom bloom-1"></div>
+        <div class="footer-bloom bloom-2"></div>
+
+        <div class="footer-content-wrap" data-aos="fade-up">
+            <div class="logo">
+                <img src="assets/logo.png" alt="AI Shastra Logo"
+                    style="height: 48px; width: auto; vertical-align: middle;">
+                <span>The AI Shastra</span>
+            </div>
+
+            <div class="footer-links-grid">
+                <div class="f-link-col">
+                    <h4>Education</h4>
+                    <a href="#training">Algorithm Foundations</a>
+                    <a href="#training">Advanced Algorithms</a>
+                    <a href="#training">Tech Career Accelerator</a>
+                    <!-- <a href="#training">Full-Stack Development</a> -->
+                    <a href="#training">AI Tools Mastery</a>
+                    <a href="#training">Python with AI</a>
+                    <a href="#training">Real-Time Projects</a>
+                </div>
+                <div class="f-link-col">
+                    <h4>Business</h4>
+                    <a href="#forge">Customized AI Solutions</a>
+                    <a href="#forge">AI in Finance</a>
+                    <a href="#forge">AI Tools</a>
+                    <a href="#forge">Agentic AI</a>
+                    <a href="#forge">Custom ChatGPT</a>
+                    <a href="#forge">ML Applications</a>
+                </div>
+                <div class="f-link-col">
+                    <h4>Company</h4>
+                    <a href="#markets">Trading Module ★</a>
+                    <a href="#fellowship">Career Opportunities</a>
+                    <a href="#codex">Robotics Division</a>
+                    <a href="#contact">Contact Us</a>
+                    <a href="#training">Enroll Now</a>
+                </div>
+                <div class="f-link-col">
+                    <h4>Connect</h4>
+                    <a href="mailto:theaishastra@gmail.com"><i class="fas fa-envelope"
+                            style="color:var(--green)"></i>theaishastra@gmail.com</a>
+                    <a href="mailto:info@theaishastra.com"><i class="fas fa-shield-halved"
+                            style="color:var(--yellow)"></i>info@theaishastra.com</a>
+                    <a href="https://wa.me/916309646644" target="_blank"><i class="fab fa-whatsapp"
+                            style="color:var(--green)"></i>+91 63096 46644</a>
+                    <a href="#contact"><i class="fas fa-headset" style="color:var(--yellow)"></i>Support Center</a>
+                </div>
+            </div>
+
+            <!-- Social Media Icons -->
+            <div class="social-hub" data-aos="fade-up">
+                <a href="mailto:theaishastra@gmail.com" class="social-icon" aria-label="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+                <a href="https://www.theaishastra.com" class="social-icon" aria-label="Website" target="_blank"
+                    rel="noopener">
+                    <i class="fas fa-globe"></i>
+                </a>
+                <a href="https://github.com/theaishastra" class="social-icon" aria-label="GitHub" target="_blank"
+                    rel="noopener">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TheAIShastra" class="social-icon" aria-label="X / Twitter" target="_blank"
+                    rel="noopener">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://www.instagram.com/theaishastra" class="social-icon" aria-label="Instagram"
+                    target="_blank" rel="noopener">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.youtube.com/@TheAI_Shastra" class="social-icon" aria-label="YouTube"
+                    target="_blank" rel="noopener">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="https://www.linkedin.com/company/ai-shastra/" class="social-icon" aria-label="LinkedIn"
+                    target="_blank" rel="noopener">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
+
+            <div
+                style="opacity: 0.5; font-size: 0.85rem; margin-bottom: 20px; font-weight: 500; letter-spacing: 0.5px; color: var(--text-dark);">
+                &copy; 2026 The AI Shastra. Neural Infrastructure for the Intelligence Era.
+            </div>
+            <div style="font-size: 0.7rem; color: var(--text-dark); opacity: 0.5;">
+                EN <i class="fas fa-chevron-right" style="font-size: 0.5rem; margin-bottom: 1px;"></i>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="contact-supabase.js"></script>
+    <!-- SHASTRA AI CHATBOT -->
+    <div class="pulse-ring"></div>
+    <div class="pulse-ring2"></div>
+
+    <div id="launcher" onclick="toggleChat()" title="Chat with Shastra AI">
+        <img src="assets/shastra_robot_3d_floating.png" alt="Shastra Robot">
+    </div>
+
+    <div id="chatbox">
+        <div class="chat-header">
+            <img src="assets/shastra_robot_3d_floating.png" class="header-robo-small" alt="Mascot">
+            <div class="header-info">
+                <div class="header-name">Shastra AI bot</div>
+            </div>
+            <div class="chat-controls" style="position: relative; z-index: 50;">
+                <button type="button" class="voice-toggle" id="voiceToggle"
+                    onclick="event.stopPropagation(); toggleMute()" title="Toggle Voice"
+                    style="position: relative; z-index: 50;">🔊</button>
+                <button type="button" class="close-btn" onclick="event.stopPropagation(); toggleChat()"
+                    title="Close Chat"
+                    style="position: relative; z-index: 50; cursor: pointer; pointer-events: all !important;">✕</button>
+            </div>
+            <div class="voice-wave" id="voiceWave" style="pointer-events: none;">
+                <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+        </div>
+
+        <div class="quick-pills">
+            <div class="pill" onclick="quickSend('Courses')">📚 Courses</div>
+            <div class="pill" onclick="quickSend('Enroll')">✍️ Enroll</div>
+            <div class="pill" onclick="quickSend('AI Solutions')">🤖 AI Solutions</div>
+            <div class="pill" onclick="quickSend('Internship')">🚀 Internship</div>
+        </div>
+
+        <div class="messages" id="chatMessages">
+            <div
+                style="text-align:center; font-size:10px; color:#94a3b8; margin-bottom:15px; font-weight:700; letter-spacing:1px; font-family:'Rajdhani',sans-serif;">
+                SECURE AI CHANNEL &nbsp;·&nbsp; <span id="chatTime"></span>
+            </div>
+        </div>
+
+        <div class="input-area">
+            <button class="mic-btn" id="micBtn" onclick="toggleSpeech()" title="Speak to Bot">
+                <i class="fas fa-microphone"></i>
+            </button>
+            <input type="text" id="userInput" placeholder="Type or speak a message..." onkeydown="handleChatKey(event)">
+            <button class="send-btn" onclick="sendChatMessage()">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+        <div class="powered-by">Powered by <b>The AI Shastra</b></div>
+    </div>
+</body>
+
+</html>
