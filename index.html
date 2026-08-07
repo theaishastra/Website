@@ -116,16 +116,7 @@
         </div>
     </nav>
 
-    <!-- ══ IPL LIVE SCORE TICKER ══ -->
-    <div id="ipl-ticker">
-        <div class="ticker-label"><i class="fas fa-circle ipl-live-dot"></i> IPL LIVE</div>
-        <div class="ticker-track-wrap">
-            <div class="ticker-track" id="ticker-track">
-                <span class="ticker-loading">Fetching live scores…</span>
-            </div>
-        </div>
-        <div class="ticker-refresh" id="ticker-refresh-time">--</div>
-    </div>
+
 
     <!-- SUTRA ZERO — Home -->
     <section id="home" class="hero">
@@ -970,7 +961,8 @@
                 <div class="card-number">02</div>
                 <div class="card-icon"><i class="fas fa-calendar-days"></i></div>
                 <h3>Upcoming Events</h3>
-                <p>Join the AI Shastra Hackathon to build innovative solutions. Get ready for an exciting event at the end of August.
+                <p>Join the AI Shastra Hackathon to build innovative solutions. Get ready for an exciting event at the
+                    end of August.
                 </p>
                 <div class="card-footer">
                     <span class="event-date">🚀 End of August</span>
@@ -991,7 +983,7 @@
             box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.02);
         }
 
-        .premium-initiatives-section .community-header h2 {
+        .community-header h2 {
             color: #2c3e50;
             font-size: 3.5rem;
             font-family: 'Georgia', serif;
@@ -999,7 +991,7 @@
             margin-bottom: 10px;
         }
 
-        .premium-initiatives-section .community-header p {
+        .community-header p {
             color: #7f8c8d;
             font-size: 1.25rem;
             font-style: italic;
@@ -1009,7 +1001,7 @@
             width: 100%;
         }
 
-        .premium-initiatives-section .sec-tag {
+        .sec-tag {
             background: #fdf2e9;
             color: #d35400;
             padding: 8px 20px;
@@ -1295,11 +1287,11 @@
                 border-radius: 20px;
             }
 
-            .premium-initiatives-section .community-header h2 {
+            .community-header h2 {
                 font-size: 2.2rem !important;
             }
 
-            .premium-initiatives-section .community-header p {
+            .community-header p {
                 font-size: 1rem !important;
             }
 
@@ -1378,51 +1370,62 @@
                 justify-content: center;
             }
         }
-        
+
         @media (max-width: 500px) {
-            .premium-initiatives-section .community-header h2 {
+            .community-header h2 {
                 font-size: 1.8rem !important;
             }
-            .premium-initiatives-section .community-header p {
+
+            .community-header p {
                 font-size: 0.9rem !important;
             }
+
             .init-title {
                 font-size: 1.8rem !important;
             }
+
             .premium-initiatives-section {
                 padding: 30px 10px !important;
                 border-radius: 15px;
             }
+
             .init-gallery {
                 height: 280px;
             }
+
             .photo-1 {
                 width: 130px;
                 height: 130px;
                 left: -10px;
             }
+
             .photo-2 {
                 width: 120px;
                 height: 120px;
                 right: -10px;
             }
+
             .photo-3 {
                 width: 180px;
                 height: 180px;
                 margin-left: -90px;
             }
+
             .cta-text h2 {
                 font-size: 1.6rem;
             }
+
             .cta-text p {
                 font-size: 0.95rem;
             }
+
             .btn-join,
             .btn-partner {
                 font-size: 0.9rem;
                 padding: 12px 20px;
             }
         }
+
         /* STORY MODALS */
         .story-modal {
             position: fixed;
@@ -1459,7 +1462,7 @@
             font-size: 1.5rem;
             color: var(--text-dark);
             cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             z-index: 10010;
             transition: all 0.3s ease;
         }
@@ -1476,26 +1479,27 @@
             height: auto;
             max-height: 70vh;
             object-fit: contain;
-            background: rgba(0,0,0,0.02);
+            background: rgba(0, 0, 0, 0.02);
             display: block;
         }
 
         .story-header {
             padding: 40px 10% 0 10%;
             text-align: center;
+            animation: slideUpFade 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 1.0s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.0s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        .story-header.visible {
-            opacity: 1;
-            transform: translateY(0);
         }
 
         @keyframes slideUpFade {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .story-header h1 {
@@ -1519,7 +1523,7 @@
         .story-body {
             max-width: 900px;
             margin: 0 auto;
-            padding: 80px 20px;
+            padding: 20px 20px 80px 20px;
         }
 
         .story-section {
@@ -1528,7 +1532,7 @@
             transform: translateY(20px);
             transition: all 0.6s ease;
         }
-        
+
         .story-section.visible {
             opacity: 1;
             transform: translateY(0);
@@ -1634,13 +1638,13 @@
             width: 100%;
             height: 250px;
             object-fit: contain;
-            background: rgba(0,0,0,0.02);
+            background: rgba(0, 0, 0, 0.02);
             border-radius: 12px;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             opacity: 0;
             transform: scale(0.9);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
 
         .story-gallery img.visible {
@@ -1650,7 +1654,7 @@
 
         .story-gallery img:hover {
             transform: scale(1.05) translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
             z-index: 2;
         }
     </style>
@@ -1691,7 +1695,8 @@
                         style="font-family: 'Georgia', serif; font-style: italic; color: #d35400; margin-bottom: 25px; font-size: 1.05rem;">
                         <i class="fas fa-map-marker-alt" style="margin-right: 5px;"></i> Kodgal, Telangana
                     </div>
-                    <a href="javascript:void(0)" onclick="openStoryModal('modal-farm')" class="btn-gallery">Read The Story <i class="fas fa-arrow-right"></i></a>
+                    <a href="javascript:void(0)" onclick="openStoryModal('modal-farm')" class="btn-gallery">Read The
+                        Story <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
 
@@ -1720,9 +1725,10 @@
                         style="font-family: 'Georgia', serif; font-style: italic; color: #d35400; margin-bottom: 25px; font-size: 1.05rem;">
                         <i class="fas fa-map-marker-alt" style="margin-right: 5px;"></i> Narayankhed
                         &nbsp;&nbsp;|&nbsp;&nbsp; <i class="fas fa-handshake" style="margin-right: 5px;"></i> In
-                        partnership with V2Help
+                        partnership with V2HelpU
                     </div>
-                    <a href="javascript:void(0)" onclick="openStoryModal('modal-school')" class="btn-gallery">Read The Story <i class="fas fa-arrow-right"></i></a>
+                    <a href="javascript:void(0)" onclick="openStoryModal('modal-school')" class="btn-gallery">Read The
+                        Story <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
 
@@ -1753,7 +1759,8 @@
                         &nbsp;&nbsp;|&nbsp;&nbsp; <i class="far fa-calendar-alt" style="margin-right: 5px;"></i> Every
                         Month First Sunday Breakfast Distribution
                     </div>
-                    <a href="javascript:void(0)" onclick="openStoryModal('modal-food')" class="btn-gallery">Read The Story <i class="fas fa-arrow-right"></i></a>
+                    <a href="javascript:void(0)" onclick="openStoryModal('modal-food')" class="btn-gallery">Read The
+                        Story <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
 
@@ -2053,13 +2060,16 @@
         <div class="story-body">
             <div class="story-section">
                 <h2>The Beginning</h2>
-                <p>The AI Shastra began this initiative by cultivating agricultural land in Kodgal Village. The project was created to understand agriculture at the grassroots level and explore practical farming methods.</p>
+                <p>The AI Shastra began this initiative by cultivating agricultural land in Kodgal Village. The project
+                    was created to understand agriculture at the grassroots level and explore practical farming methods.
+                </p>
             </div>
             <div class="story-section">
                 <h2>Our Approach</h2>
-                <p>The land was prepared, quality seeds were selected, and regular monitoring was carried out throughout the cultivation process. The initiative focused on learning through real-world implementation.</p>
+                <p>The land was prepared, quality seeds were selected, and regular monitoring was carried out throughout
+                    the cultivation process. The initiative focused on learning through real-world implementation.</p>
             </div>
-            
+
             <div class="story-highlights">
                 <h2>Key Highlights</h2>
                 <div class="highlight-list">
@@ -2072,7 +2082,8 @@
 
             <div class="story-section">
                 <h2>Outcome</h2>
-                <p>The cultivation was successful, providing valuable insights into farming practices and laying the foundation for future agriculture-focused initiatives.</p>
+                <p>The cultivation was successful, providing valuable insights into farming practices and laying the
+                    foundation for future agriculture-focused initiatives.</p>
             </div>
 
             <div class="story-section">
@@ -2102,19 +2113,20 @@
             <h1>Back to School</h1>
             <div class="story-header-meta">
                 <span><i class="fas fa-map-marker-alt"></i> Narayankhed, Telangana</span>
-                <span><i class="fas fa-handshake"></i> In partnership with V2Help</span>
+                <span><i class="fas fa-handshake"></i> In partnership with V2HelpU</span>
             </div>
         </div>
         <div class="story-body">
             <div class="story-section">
                 <h2>About the Initiative</h2>
-                <p>To encourage education and support students, The AI Shastra distributed school bags to children. The initiative aimed to motivate students as they continue their learning journey.</p>
+                <p>To encourage education and support students, The AI Shastra distributed school bags to children. The
+                    initiative aimed to motivate students as they continue their learning journey.</p>
             </div>
-            
+
             <div class="story-highlights">
                 <h2>Highlights</h2>
                 <div class="highlight-list">
-                    <div class="highlight-item"><i class="fas fa-backpack"></i> School bags distributed</div>
+                    <div class="highlight-item"><i class="fas fa-book"></i> School bags distributed</div>
                     <div class="highlight-item"><i class="fas fa-child"></i> Students supported</div>
                     <div class="highlight-item"><i class="fas fa-school"></i> Government School focus</div>
                 </div>
@@ -2130,7 +2142,8 @@
             </div>
 
             <div class="story-quote">
-                "Watching their faces light up as they received the tools they need for a brighter future is a memory we cherish."
+                "Watching their faces light up as they received the tools they need for a brighter future is a memory we
+                cherish."
                 <span>- The AI Shastra</span>
             </div>
         </div>
@@ -2150,9 +2163,11 @@
         <div class="story-body">
             <div class="story-section">
                 <h2>About the Initiative</h2>
-                <p>The AI Shastra organized a food distribution drive at a hospital, serving nutritious meals to patients and their attendants. The initiative reflected our commitment to compassion and community care.</p>
+                <p>The AI Shastra organized a food distribution drive at a hospital, serving nutritious meals to
+                    patients and their attendants. The initiative reflected our commitment to compassion and community
+                    care.</p>
             </div>
-            
+
             <div class="story-highlights">
                 <h2>Highlights</h2>
                 <div class="highlight-list">
@@ -2183,43 +2198,37 @@
         let scrollPosition = 0;
 
         function openStoryModal(modalId) {
-            const modal = document.getElementById(modalId);
-            modal.classList.add('active');
-            
+            document.getElementById(modalId).classList.add('active');
+
             // Bulletproof scroll lock for mobile & desktop
             scrollPosition = window.pageYOffset;
             document.body.style.setProperty('position', 'fixed', 'important');
             document.body.style.setProperty('top', `-${scrollPosition}px`, 'important');
             document.body.style.setProperty('width', '100%', 'important');
             document.body.style.setProperty('overflow-y', 'scroll', 'important'); // Prevent layout shift from scrollbar disappearing
-            
+
             // Trigger animations for this modal
+            const modal = document.getElementById(modalId);
             const animatedElements = modal.querySelectorAll('.story-section, .story-highlights, .story-quote, .story-gallery img, .story-header');
-            
-            // Reset opacity and state immediately
+
+            // Set root to the modal so intersection is calculated based on modal scroll, not main window scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { root: modal, threshold: 0.1 });
+
             animatedElements.forEach(el => {
                 el.classList.remove('visible'); // Reset on open
+                observer.observe(el);
             });
-
-            // Wait 600ms for the modal to slide fully onto the screen before triggering animations
-            setTimeout(() => {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('visible');
-                        }
-                    });
-                }, { root: modal, threshold: 0.1 });
-
-                animatedElements.forEach(el => {
-                    observer.observe(el);
-                });
-            }, 600);
         }
 
         function closeStoryModal(modalId) {
             document.getElementById(modalId).classList.remove('active');
-            
+
             // Restore scrolling
             document.body.style.removeProperty('position');
             document.body.style.removeProperty('top');
