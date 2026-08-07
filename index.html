@@ -116,7 +116,16 @@
         </div>
     </nav>
 
-
+    <!-- ══ IPL LIVE SCORE TICKER ══ -->
+    <div id="ipl-ticker">
+        <div class="ticker-label"><i class="fas fa-circle ipl-live-dot"></i> IPL LIVE</div>
+        <div class="ticker-track-wrap">
+            <div class="ticker-track" id="ticker-track">
+                <span class="ticker-loading">Fetching live scores…</span>
+            </div>
+        </div>
+        <div class="ticker-refresh" id="ticker-refresh-time">--</div>
+    </div>
 
     <!-- SUTRA ZERO — Home -->
     <section id="home" class="hero">
@@ -982,7 +991,7 @@
             box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.02);
         }
 
-        .community-header h2 {
+        .premium-initiatives-section .community-header h2 {
             color: #2c3e50;
             font-size: 3.5rem;
             font-family: 'Georgia', serif;
@@ -990,7 +999,7 @@
             margin-bottom: 10px;
         }
 
-        .community-header p {
+        .premium-initiatives-section .community-header p {
             color: #7f8c8d;
             font-size: 1.25rem;
             font-style: italic;
@@ -1000,7 +1009,7 @@
             width: 100%;
         }
 
-        .sec-tag {
+        .premium-initiatives-section .sec-tag {
             background: #fdf2e9;
             color: #d35400;
             padding: 8px 20px;
@@ -1286,11 +1295,11 @@
                 border-radius: 20px;
             }
 
-            .community-header h2 {
+            .premium-initiatives-section .community-header h2 {
                 font-size: 2.2rem !important;
             }
 
-            .community-header p {
+            .premium-initiatives-section .community-header p {
                 font-size: 1rem !important;
             }
 
@@ -1371,10 +1380,10 @@
         }
         
         @media (max-width: 500px) {
-            .community-header h2 {
+            .premium-initiatives-section .community-header h2 {
                 font-size: 1.8rem !important;
             }
-            .community-header p {
+            .premium-initiatives-section .community-header p {
                 font-size: 0.9rem !important;
             }
             .init-title {
@@ -1474,8 +1483,14 @@
         .story-header {
             padding: 40px 10% 0 10%;
             text-align: center;
-            animation: slideUpFade 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
             opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1.0s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.0s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .story-header.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         @keyframes slideUpFade {
@@ -2168,7 +2183,8 @@
         let scrollPosition = 0;
 
         function openStoryModal(modalId) {
-            document.getElementById(modalId).classList.add('active');
+            const modal = document.getElementById(modalId);
+            modal.classList.add('active');
             
             // Bulletproof scroll lock for mobile & desktop
             scrollPosition = window.pageYOffset;
@@ -2178,22 +2194,27 @@
             document.body.style.setProperty('overflow-y', 'scroll', 'important'); // Prevent layout shift from scrollbar disappearing
             
             // Trigger animations for this modal
-            const modal = document.getElementById(modalId);
             const animatedElements = modal.querySelectorAll('.story-section, .story-highlights, .story-quote, .story-gallery img, .story-header');
             
-            // Set root to the modal so intersection is calculated based on modal scroll, not main window scroll
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { root: modal, threshold: 0.1 });
-
+            // Reset opacity and state immediately
             animatedElements.forEach(el => {
                 el.classList.remove('visible'); // Reset on open
-                observer.observe(el);
             });
+
+            // Wait 600ms for the modal to slide fully onto the screen before triggering animations
+            setTimeout(() => {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                        }
+                    });
+                }, { root: modal, threshold: 0.1 });
+
+                animatedElements.forEach(el => {
+                    observer.observe(el);
+                });
+            }, 600);
         }
 
         function closeStoryModal(modalId) {
