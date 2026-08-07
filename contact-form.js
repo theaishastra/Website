@@ -1,93 +1,39 @@
 /* ═══════════════════════════════════════════════════════════════
-   CONTACT FORM — SUPABASE + EMAILJS INTEGRATION
-   File: contact-supabase.js
+   CONTACT FORM — GOOGLE APPS SCRIPT INTEGRATION
+   File: contact-form.js
 
-   Add to index.html before </body>:
-   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-   <script src="contact-supabase.js"></script>
+   Paste your Apps Script Web App URL below (see
+   appscript-contact-backend.gs for the backend + deploy steps).
    ═══════════════════════════════════════════════════════════════ */
 
 (function () {
     'use strict';
 
-    /* ════════════════════════════════════════════
-       ①  YOUR CREDENTIALS — FILL THESE IN
-    ════════════════════════════════════════════ */
-
-    /* — SUPABASE — */
-    const SUPABASE_URL = 'https://vbctaamuyfpcqokpwatd.supabase.co';       // e.g. https://xyzabc.supabase.co
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZiY3RhYW11eWZwY3Fva3B3YXRkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MDQ0MjIsImV4cCI6MjA5MDA4MDQyMn0.nLAl3NML1ovQc7v2N7NF73q_j6bGU5_byjWjAldScXA';  // anon/public key
-    const TABLE_NAME = 'contact_submissions';
-
-    /* — EMAILJS — */
-    const EMAILJS_PUBLIC_KEY = 'jGlUrMM5jn_A_44Vu';   // Account → API Keys → Public Key
-    const EMAILJS_SERVICE_ID = 'service_umt79jl';   // Email Services → Service ID
-    const EMAILJS_TEMPLATE_ID = 'template_8lxdf75';  // Email Templates → Template ID
-    const ADMIN_EMAIL = 'theaishastra@gmail.com';  // Admin notification email
-
-    /* ════════════════════════════════════════════ */
+    /* ①  this YOUR APPS SCRIPT WEB APP URL — FILL THIS IN (ends in /exec) */
+    const APPSCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyWRBrGSlmTbNZFvF6XrG3bDT9dyGHk2_hcPDFFZq2tp5yFJ3Istah69GMEUXqXrTRZXA/exec';
 
 
-    /* ── SUPABASE SAVE ── */
-    async function saveToSupabase(payload) {
-        const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE_NAME}`, {
+    /* ── SUBMIT TO APPS SCRIPT ── */
+    async function submitToAppsScript(payload) {
+        const res = await fetch(APPSCRIPT_URL, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'apikey': SUPABASE_ANON_KEY,
-                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                'Prefer': 'return=minimal',
-            },
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // avoids CORS preflight
             body: JSON.stringify(payload),
         });
-        if (!res.ok) {
-            const err = await res.json().catch(() => ({}));
-            throw new Error(err.message || `Supabase HTTP ${res.status}`);
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.ok) {
+            throw new Error(data.error || `Apps Script HTTP ${res.status}`);
         }
         return true;
-    }
-
-    /* ── EMAILJS SEND ── */
-    async function sendEmail(payload) {
-        if (typeof emailjs === 'undefined') {
-            console.warn('[AI Shastra] EmailJS not loaded — skipping email.');
-            return false;
-        }
-
-        /* Admin notification — primary email delivery */
-        try {
-            await emailjs.send(
-                EMAILJS_SERVICE_ID,
-                EMAILJS_TEMPLATE_ID,
-                {
-                    to_name: 'AI Shastra Admin',
-                    to_email: ADMIN_EMAIL,
-                    subject: `New Contact: ${payload.subject}`,
-                    message: `From: ${payload.full_name}\nEmail: ${payload.email}\n\nMessage:\n${payload.message}`,
-                    reply_to: payload.email,
-                    from_name: payload.full_name,
-                    from_email: payload.email,
-                    user_name: payload.full_name,
-                    user_email: payload.email,
-                    user_message: payload.message,
-                },
-                EMAILJS_PUBLIC_KEY
-            );
-            console.log('[EmailJS] ✓ Notification sent to admin');
-            return true;
-        } catch (err) {
-            console.error('[EmailJS] ✗ Failed to send admin notification:', err);
-            return false;
-        }
     }
 
 
     /* ══════════════════════════════════════════
        VALIDATION
     ══════════════════════════════════════════ */
-    function validate(fname, femail, fsubject, fmessage) {
+    function validate(fname, femail, fphone, fmessage) {
         let ok = true;
-        [fname, femail, fsubject, fmessage].forEach(clearError);
+        [fname, femail, fphone, fmessage].forEach(clearError);
 
         if (!fname.value.trim() || fname.value.trim().length < 2) {
             showError(fname, 'Please enter your full name'); ok = false;
@@ -95,8 +41,8 @@
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(femail.value.trim())) {
             showError(femail, 'Please enter a valid email address'); ok = false;
         }
-        if (!fsubject.value.trim() || fsubject.value.trim().length < 3) {
-            showError(fsubject, 'Please enter a subject'); ok = false;
+        if (!/^[0-9+\-\s()]{7,15}$/.test(fphone.value.trim())) {
+            showError(fphone, 'Please enter a valid mobile number'); ok = false;
         }
         if (!fmessage.value.trim() || fmessage.value.trim().length < 10) {
             showError(fmessage, 'Message too short (min 10 characters)'); ok = false;
@@ -155,19 +101,14 @@
                 Signal Transmitted!
             </h3>
             <p style="font-size:0.92rem;color:#64748b;line-height:1.65;max-width:320px;margin:0 auto 20px;animation:csbFadeUp 0.5s 0.45s both;">
-                Your message is saved &amp; a confirmation email has been sent to your inbox.
+                Your message has been received &amp; a confirmation email is on its way to your inbox.
             </p>
 
             <div style="display:flex;flex-direction:column;gap:10px;width:100%;max-width:300px;animation:csbFadeUp 0.5s 0.6s both;">
                 <div style="display:flex;align-items:center;gap:10px;background:rgba(34,197,94,0.07);border:1px solid rgba(34,197,94,0.15);border-radius:12px;padding:10px 16px;font-size:0.78rem;font-weight:700;color:#16a34a;">
-                    <i class="fas fa-database" style="font-size:0.9rem;"></i>
-                    <span>Saved to AI Shastra database</span>
-                    <i class="fas fa-circle-check" style="margin-left:auto;color:#22c55e;"></i>
-                </div>
-                <div style="display:flex;align-items:center;gap:10px;background:rgba(234,179,8,0.07);border:1px solid rgba(234,179,8,0.2);border-radius:12px;padding:10px 16px;font-size:0.78rem;font-weight:700;color:#ca8a04;">
                     <i class="fas fa-envelope" style="font-size:0.9rem;"></i>
-                    <span>Confirmation email sent</span>
-                    <i class="fas fa-circle-check" style="margin-left:auto;color:#eab308;" id="csb-email-tick"></i>
+                    <span>Message sent to our team</span>
+                    <i class="fas fa-circle-check" style="margin-left:auto;color:#22c55e;"></i>
                 </div>
             </div>
 
@@ -244,23 +185,18 @@
     ══════════════════════════════════════════ */
     async function handleSubmit(e) {
         e.preventDefault();
-        console.log('[Contact Form] Submit handler triggered');
 
-        const form = document.querySelector('.quantum-form') || document.querySelector('.connectai-form');
+        const form = document.querySelector('.connectai-form');
         const fname = form.querySelector('#fname');
         const femail = form.querySelector('#femail');
-        const fsubject = form.querySelector('#fsubject');
+        const fphone = form.querySelector('#fphone');
         const fmessage = form.querySelector('#fmessage');
-        const btn = form.querySelector('.btn-transmit') || form.querySelector('.btn-submit');
-        console.log('[Contact Form] Button found:', !!btn, 'Button class:', btn?.className);
+        const btn = form.querySelector('.btn-submit');
 
-        if (!validate(fname, femail, fsubject, fmessage)) {
-            console.log('[Contact Form] Validation failed');
-            return;
-        }
+        if (!validate(fname, femail, fphone, fmessage)) return;
 
         /* Mark fields green */
-        [fname, femail, fsubject, fmessage].forEach(f => {
+        [fname, femail, fphone, fmessage].forEach(f => {
             f.style.borderColor = '#22c55e';
             f.style.background = '';
         });
@@ -280,28 +216,20 @@
         `;
         btn.appendChild(spin);
 
-        /* Payload — only 4 fields */
         const payload = {
             full_name: fname.value.trim(),
             email: femail.value.trim().toLowerCase(),
-            subject: fsubject.value.trim(),
+            phone: fphone.value.trim(),
             message: fmessage.value.trim(),
         };
 
-        let supabaseOk = false;
-        let emailOk = false;
-
-        /* STEP 1 — Save to Supabase (non-fatal) */
+        let ok = false;
         try {
-            await saveToSupabase(payload);
-            supabaseOk = true;
-            console.log('[Contact Form] Saved to Supabase ✓');
+            await submitToAppsScript(payload);
+            ok = true;
         } catch (err) {
-            console.error('[Contact Form] Supabase error:', err);
+            console.error('[Contact Form] Apps Script error:', err);
         }
-
-        /* STEP 2 — Send email via EmailJS (non-fatal) */
-        emailOk = await sendEmail(payload);
 
         /* Restore button */
         btn.innerHTML = origHTML;
@@ -309,20 +237,17 @@
         btn.style.color = '';
         btn.style.position = '';
 
-        if (supabaseOk || emailOk) {
-            /* At least one delivery succeeded — show success */
+        if (ok) {
             const overlay = document.getElementById('csb-overlay');
             overlay.style.opacity = '1';
             overlay.style.pointerEvents = 'all';
             fireConfetti();
         } else {
-            /* Both failed — open mailto as fallback */
-            console.warn('[Contact Form] Both Supabase and EmailJS failed — opening mailto fallback');
+            /* Failed — open mailto as fallback */
             const mailBody = encodeURIComponent(
-                `Name: ${payload.full_name}\nEmail: ${payload.email}\n\nMessage:\n${payload.message}`
+                `Name: ${payload.full_name}\nEmail: ${payload.email}\nPhone: ${payload.phone}\n\nMessage:\n${payload.message}`
             );
-            const mailSubject = encodeURIComponent(payload.subject);
-            window.location.href = `mailto:${ADMIN_EMAIL}?subject=${mailSubject}&body=${mailBody}`;
+            window.location.href = `mailto:theaishastra@gmail.com?subject=${encodeURIComponent('New Contact: ' + payload.full_name)}&body=${mailBody}`;
 
             btn.innerHTML = `<i class="fas fa-envelope"></i>&nbsp; Opening Email App…`;
             btn.style.background = 'linear-gradient(135deg,#3b82f6,#6366f1)';
@@ -335,7 +260,7 @@
 
     /* ── RESET ── */
     function resetForm() {
-        const form = document.querySelector('.quantum-form') || document.querySelector('.connectai-form');
+        const form = document.querySelector('.connectai-form');
         const overlay = document.getElementById('csb-overlay');
         form.reset();
         form.querySelectorAll('input,textarea').forEach(f => {
@@ -350,18 +275,9 @@
 
     /* ── INIT ── */
     function init() {
-        const form = document.querySelector('.quantum-form') || document.querySelector('.connectai-form');
-        const wrap = document.querySelector('.contact-hub-form') || document.querySelector('.connectai-right');
-        console.log('[Contact Form] Init - Form found:', !!form, 'Wrap found:', !!wrap);
-        if (!form || !wrap) {
-            console.warn('[Contact Form] Form or wrapper not found');
-            return;
-        }
-
-        /* Init EmailJS */
-        if (typeof emailjs !== 'undefined') {
-            emailjs.init(EMAILJS_PUBLIC_KEY);
-        }
+        const form = document.querySelector('.connectai-form');
+        const wrap = document.querySelector('.connectai-right');
+        if (!form || !wrap) return;
 
         injectKeyframes();
         buildOverlay(wrap);
@@ -372,7 +288,6 @@
             if (e.target.closest('#csb-again-btn')) resetForm();
         });
 
-        /* Clear errors on typing */
         form.querySelectorAll('input,textarea').forEach(input => {
             input.addEventListener('input', () => {
                 input.style.borderColor = '';
